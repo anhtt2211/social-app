@@ -1,7 +1,7 @@
-import { FC, Fragment } from "react";
-import { FormGroup, ListFormGroup, TextAreaFormGroup } from "../FormGroup";
-import { Errors } from "../Errors";
-import { GenericErrors, GenericFormField } from "../../types";
+import { FC, Fragment } from 'react';
+import { FormGroup, ListFormGroup, TextAreaFormGroup } from '../FormGroup';
+import { Errors } from '../Errors';
+import { GenericErrors, GenericFormField } from '../../types';
 
 export interface GenericFormProps {
   fields: GenericFormField[];
@@ -29,26 +29,26 @@ export const GenericForm: FC<GenericFormProps> = ({
   <Fragment>
     <Errors errors={errors} />
 
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="block">
       <fieldset>
         {fields.map((field) =>
-          field.fieldType === "input" ? (
+          field.fieldType === 'input' ? (
             <FormGroup
               key={field.name}
               disabled={disabled || field.disabled}
               type={field.type}
               placeholder={field.placeholder}
-              value={formObject[field.name] || ""}
+              value={formObject[field.name] || ''}
               onChange={onUpdateField(field.name, onChange)}
               lg={field.lg}
             />
-          ) : field.fieldType === "textarea" ? (
+          ) : field.fieldType === 'textarea' ? (
             <TextAreaFormGroup
               key={field.name}
               disabled={disabled}
               type={field.type}
               placeholder={field.placeholder}
-              value={formObject[field.name] || ""}
+              value={formObject[field.name] || ''}
               rows={field.rows as number}
               onChange={onUpdateField(field.name, onChange)}
               lg={field.lg}
@@ -59,7 +59,7 @@ export const GenericForm: FC<GenericFormProps> = ({
               disabled={disabled}
               type={field.type}
               placeholder={field.placeholder}
-              value={formObject[field.name] || ""}
+              value={formObject[field.name] || ''}
               onChange={onUpdateField(field.name, onChange)}
               listValue={
                 formObject[field.listName as string] as unknown as string[]
@@ -78,7 +78,7 @@ export const GenericForm: FC<GenericFormProps> = ({
             />
           )
         )}
-        <button className="btn btn-lg btn-primary pull-xs-right">
+        <button className="bg-green text-white text-xl font-semibold px-12 py-4 rounded-xl">
           {submitButtonText}
         </button>
       </fieldset>
@@ -88,7 +88,7 @@ export const GenericForm: FC<GenericFormProps> = ({
 
 function onUpdateField(
   name: string,
-  onChange: GenericFormProps["onChange"]
+  onChange: GenericFormProps['onChange']
 ): (ev: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void {
   return ({ target: { value } }) => {
     onChange(name, value);

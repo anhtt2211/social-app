@@ -55,8 +55,8 @@ function NavItem({
 function GuestLinks() {
   return (
     <Fragment>
-      <NavItem text="Sign in" href="/login" />
-      <NavItem text="Sign up" href="/register" />
+      <NavItem text="Sign in" href="/sign-in" />
+      <NavItem text="Sign up" href="/sign-up" />
     </Fragment>
   );
 }

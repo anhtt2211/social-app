@@ -16,9 +16,9 @@ export function FormGroup({
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
-    <fieldset className='form-group'>
+    <fieldset className="mb-4">
       <input
-        className={`form-control${!lg ? '' : ' form-control-lg'}`}
+        className="py-3 px-5 outline-none border-1 border-solid rounded w-[40%]"
         {...{ type, placeholder, disabled, value, onChange }}
       />
     </fieldset>
@@ -43,7 +43,7 @@ export function TextAreaFormGroup({
   onChange: (ev: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }) {
   return (
-    <fieldset className='form-group'>
+    <fieldset className="form-group">
       <textarea
         className={`form-control${!lg ? '' : ' form-control-lg'}`}
         {...{ type, placeholder, disabled, value, onChange, rows }}
@@ -74,17 +74,21 @@ export function ListFormGroup({
   onRemoveItem: (index: number) => void;
 }) {
   return (
-    <fieldset className='form-group'>
+    <fieldset className="form-group">
       <input
         className={`form-control${!lg ? '' : ' form-control-lg'}`}
         {...{ type, placeholder, disabled, value, onChange }}
         onKeyDown={(ev) => ev.key === 'Enter' && ev.preventDefault()}
         onKeyUp={onListFieldKeyUp(onEnter)}
       />
-      <div className='tag-list'>
+      <div className="tag-list">
         {listValue.map((value, index) => (
-          <span key={value} className='tag-default tag-pill' onClick={() => onRemoveItem(index)}>
-            <i className='ion-close-round'></i>
+          <span
+            key={value}
+            className="tag-default tag-pill"
+            onClick={() => onRemoveItem(index)}
+          >
+            <i className="ion-close-round"></i>
             {value}
           </span>
         ))}
@@ -93,7 +97,9 @@ export function ListFormGroup({
   );
 }
 
-export function onListFieldKeyUp(onEnter: () => void): (ev: React.KeyboardEvent) => void {
+export function onListFieldKeyUp(
+  onEnter: () => void
+): (ev: React.KeyboardEvent) => void {
   return (ev) => {
     if (ev.key === 'Enter') {
       ev.preventDefault();

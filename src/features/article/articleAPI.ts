@@ -1,5 +1,5 @@
 import { httpClient } from 'config';
-import { ArticlesFilters, MultipleArticles } from 'types';
+import { ArticleRO, ArticlesFilters, MultipleArticles } from 'types';
 import { objectToQueryString } from 'utils';
 
 export async function getGlobalFeeds(
@@ -11,4 +11,8 @@ export async function getGlobalFeeds(
     offset: 0,
   };
   return httpClient.get(`articles?${objectToQueryString(filter)}`);
+}
+
+export async function getArticleViaSlug(slug: string): Promise<ArticleRO> {
+  return httpClient.get(`articles/${slug}`);
 }

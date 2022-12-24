@@ -25,3 +25,7 @@ export interface MultipleArticles {
   articles: Article[];
   articlesCount: number;
 }
+
+export interface ArticleRO {
+  article: Article;
+}

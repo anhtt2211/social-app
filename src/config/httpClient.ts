@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const httpClient = axios.create({
   baseURL: 'https://api.realworld.io/api/',
-  // baseURL: "http://localhost:8000/api/",
+  // baseURL: 'http://localhost:8000/api/',
 });
 
 httpClient.interceptors.request.use((config) => {

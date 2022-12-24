@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Article, MultipleArticles } from 'types';
+import { Article, ArticleRO, MultipleArticles } from 'types';
 
 export interface ArticleState {
   articles: readonly Article[];
+  article: Article;
   articlesCount: number;
   isLoading: boolean;
   error: string;
@@ -10,6 +11,23 @@ export interface ArticleState {
 
 const initialState: ArticleState = {
   articles: [],
+  article: {
+    slug: '',
+    title: '',
+    description: '',
+    body: '',
+    tagList: [],
+    createdAt: '',
+    updatedAt: '',
+    favorited: false,
+    favoritesCount: 0,
+    author: {
+      following: false,
+      username: '',
+      bio: '',
+      image: '',
+    },
+  },
   articlesCount: 0,
   isLoading: false,
   error: '',
@@ -35,6 +53,38 @@ const slice = createSlice({
       state.error = payload;
       state.isLoading = false;
     },
+
+    loadArticleRequest: (state, { payload }: PayloadAction<string>) => {
+      state.isLoading = true;
+    },
+    loadArticleSuccess: (state, { payload }: PayloadAction<ArticleRO>) => {
+      state.isLoading = false;
+      state.article = payload.article;
+    },
+    loadArticleFailure: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    resetArticle: (state) => {
+      state.article = {
+        slug: '',
+        title: '',
+        description: '',
+        body: '',
+        tagList: [],
+        createdAt: '',
+        updatedAt: '',
+        favorited: false,
+        favoritesCount: 0,
+        author: {
+          following: false,
+          username: '',
+          bio: '',
+          image: '',
+        },
+      };
+    },
   },
 });
 
@@ -43,6 +93,10 @@ export const {
   loadGlobalArticlesRequest,
   loadGlobalArticlesSuccess,
   loadGlobalArticlesFailure,
+  loadArticleRequest,
+  loadArticleSuccess,
+  loadArticleFailure,
+  resetArticle,
 } = slice.actions;
 
 export default slice.reducer;

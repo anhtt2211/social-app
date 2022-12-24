@@ -1,7 +1,10 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { MultipleArticles } from 'types';
-import { getGlobalFeeds } from './articleAPI';
+import { ArticleRO, MultipleArticles } from 'types';
+import { getArticleViaSlug, getGlobalFeeds } from './articleAPI';
 import {
+  loadArticleFailure,
+  loadArticleRequest,
+  loadArticleSuccess,
   loadGlobalArticlesFailure,
   loadGlobalArticlesRequest,
   loadGlobalArticlesSuccess,
@@ -17,6 +20,17 @@ function* fetchGlobalArticles() {
   }
 }
 
+function* fetchArticle(action: any) {
+  try {
+    const article: ArticleRO = yield call(getArticleViaSlug, action.payload);
+
+    yield put(loadArticleSuccess(article));
+  } catch (error) {
+    yield put(loadArticleFailure(error));
+  }
+}
+
 export function* articleSaga() {
   yield takeLatest(loadGlobalArticlesRequest.type, fetchGlobalArticles);
+  yield takeLatest(loadArticleRequest.type, fetchArticle);
 }

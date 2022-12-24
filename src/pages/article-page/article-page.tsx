@@ -1,31 +1,18 @@
-import React, { Fragment } from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
+import { Fragment, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
-import { Article } from 'types';
+import { useAppSelector } from 'app/hooks';
+import { store } from 'app/store';
 import { DATE_FORMAT } from 'constant';
+import {
+  loadArticleRequest,
+  resetArticle,
+} from 'features/article/articleSlice';
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
+import { Article } from 'types';
 
-const article = {
-  slug: 'If-we-quantify-the-alarm-we-can-get-to-the-FTP-pixel-through-the-online-SSL-interface!-120863',
-  title:
-    'If we quantify the alarm, we can get to the FTP pixel through the online SSL interface!',
-  description:
-    'Omnis perspiciatis qui quia commodi sequi modi. Nostrum quam aut cupiditate est facere omnis possimus. Tenetur similique nemo illo soluta molestias facere quo. Ipsam totam facilis delectus nihil quidem soluta vel est omnis.',
-  body: 'Quia quo iste et aperiam voluptas consectetur a omnis et.\\nDolores et earum consequuntur sunt et.\\nEa nulla ab voluptatem dicta vel. Temporibus aut adipisci magnam aliquam eveniet nihil laudantium reprehenderit sit.\\nAspernatur cumque labore voluptates mollitia deleniti et. Quos pariatur tenetur.\\nQuasi omnis eveniet eos maiores esse magni possimus blanditiis.\\nQui incidunt sit quos consequatur aut qui et aperiam delectus.\\nPraesentium quas culpa.\\nEaque occaecati cumque incidunt et. Provident saepe omnis non molestiae natus et.\\nAccusamus laudantium hic unde voluptate et sunt voluptatem.\\nMollitia velit id eius mollitia occaecati repudiandae. Voluptatum tempora voluptas est odio iure odio dolorem.\\nVoluptatum est deleniti explicabo explicabo harum provident quis molestiae. Sed dolores nostrum quis. Aut ipsa et qui vel similique sed hic a.\\nVoluptates dolorem culpa nihil aut ipsam voluptatem. Cupiditate officia voluptatum.\\nTenetur facere eum distinctio animi qui laboriosam.\\nQuod sed voluptatem et cumque est eos.\\nSint id provident suscipit harum odio et. Facere beatae delectus ut.\\nPossimus voluptas perspiciatis voluptatem nihil sint praesentium.\\nSint est nihil voluptates nesciunt voluptatibus temporibus blanditiis.\\nOfficiis voluptatem earum sed. Deserunt ab porro similique est accusamus id enim aut suscipit.\\nSoluta reprehenderit error nesciunt odit veniam sed.\\nDolore optio qui aut ab.\\nAut minima provident eius repudiandae a quibusdam in nisi quam.',
-  tagList: ['rerum', 'maiores', 'omnis', 'quae'],
-  createdAt: '2022-12-09T13:46:24.264Z',
-  updatedAt: '2022-12-09T13:46:24.264Z',
-  favorited: false,
-  favoritesCount: 84,
-  author: {
-    username: 'Anah Benešová',
-    bio: null,
-    image: 'https://api.realworld.io/images/demo-avatar.png',
-    following: false,
-  },
-};
 const comments = [
   {
     id: 39272,
@@ -43,10 +30,26 @@ const comments = [
 const commentSection = {
   comments,
 };
+
+interface Params {
+  slug: string;
+}
+
 export const ArticlePage = () => {
+  const { slug } = useParams<Params>();
+  const { article } = useAppSelector((state) => state.article);
+
+  useEffect(() => {
+    load(slug);
+
+    return () => {
+      store.dispatch(resetArticle());
+    };
+  }, [slug]);
+
   return (
     <div className="space-y-8 pb-10">
-      {ArticlePageBanner()}
+      <ArticlePageBanner article={article} />
       <div className="container mx-auto space-y-8">
         <div className="space-y-4">
           <div
@@ -57,9 +60,8 @@ export const ArticlePage = () => {
           <div className="border-1 border-solid h-[1px]" />
         </div>
 
-        <ArticleMeta />
+        <ArticleMeta article={article} />
 
-        {/* comment */}
         <CommentSection
           user={article.author}
           article={article}
@@ -70,19 +72,19 @@ export const ArticlePage = () => {
   );
 };
 
-function ArticlePageBanner() {
+function ArticlePageBanner({ article }: { article: Article }) {
   return (
     <div className="w-screen bg-[#333] text-white">
       <div className="container mx-auto space-y-18 py-6">
         <h1 className="text-4xl font-bold">{article.title}</h1>
 
-        <ArticleMeta />
+        <ArticleMeta article={article} />
       </div>
     </div>
   );
 }
 
-function ArticleMeta() {
+function ArticleMeta({ article }: { article: Article }) {
   return (
     <div className="mt-8">
       <div className="flex space-x-2">
@@ -203,4 +205,8 @@ function OwnerArticleMetaActions({
       </button>
     </Fragment>
   );
+}
+
+function load(slug: string) {
+  store.dispatch(loadArticleRequest(slug));
 }
