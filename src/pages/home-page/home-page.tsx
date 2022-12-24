@@ -1,18 +1,17 @@
+import { useEffect } from 'react';
+
+import { useAppSelector } from 'app/hooks';
+
+import { store } from 'app/store';
+import { loadGlobalArticlesRequest } from 'features/article/articleSlice';
 import { ArticlesViewer } from 'features/article/components/ArticlesViewer';
+import { loadTagsRequest } from 'features/tag/tagSlice';
 
 export const HomePage = () => {
-  const tags = [
-    'implementations',
-    'welcome',
-    'introduction',
-    'codebaseShow',
-    'ipsum',
-    'qui',
-    'et',
-    'quia',
-    'cupiditate',
-    'deserunt',
-  ];
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
     <div>
       {renderBanner()}
@@ -24,7 +23,7 @@ export const HomePage = () => {
           </div>
 
           <div className="flex-[0_0_25%] max-w-[25%] px-4">
-            <HomeSidebar tags={tags} />
+            <HomeSidebar />
           </div>
         </div>
       </div>
@@ -43,27 +42,33 @@ function renderBanner() {
   );
 }
 
-function HomeSidebar({ tags }: { tags: string[] }) {
+function HomeSidebar() {
+  const { tags } = useAppSelector((state) => state.tag);
+
   return (
     <div className="bg-[#f3f3f3] rounded-md p-3 break-normal space-y-2">
       <p>Popular Tags</p>
 
       {tags.length > 0 ? (
-        <div className="block ">
+        <div className="block">
           {tags.map((tag) => (
             <a
               key={tag}
               href="#"
               className="px-2 rounded-3xl text-[#fff] text-sm py-1 bg-[#818a91] mr-1 inline-block mb-1"
-              // onClick={() => onTabChange(`# ${tag}`)}
             >
               {tag}
             </a>
           ))}
         </div>
       ) : (
-        <span>Loading tags...</span>
+        <div>Loading tags...</div>
       )}
     </div>
   );
+}
+
+async function load() {
+  store.dispatch(loadGlobalArticlesRequest());
+  store.dispatch(loadTagsRequest());
 }

@@ -12,3 +12,16 @@ export interface Article {
   favoritesCount: number;
   author: Profile;
 }
+
+export interface ArticlesFilters {
+  tag?: string;
+  author?: string;
+  favorited?: string;
+  limit?: number;
+  offset?: number;
+}
+
+export interface MultipleArticles {
+  articles: Article[];
+  articlesCount: number;
+}

@@ -1,11 +1,11 @@
+import React, { Fragment } from 'react';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
+
+import { Article } from 'types';
 import { DATE_FORMAT } from 'constant';
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
-import moment from 'moment';
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import { Article } from 'types';
-import { redirect } from 'utils';
 
 const article = {
   slug: 'If-we-quantify-the-alarm-we-can-get-to-the-FTP-pixel-through-the-online-SSL-interface!-120863',
@@ -188,10 +188,7 @@ function OwnerArticleMetaActions({
 }) {
   return (
     <Fragment>
-      <button
-        className="btn btn-outline-secondary btn-sm"
-        onClick={() => redirect(`editor/${slug}`)}
-      >
+      <button className="btn btn-outline-secondary btn-sm">
         <i className="ion-plus-round"></i>
         &nbsp; Edit Article
       </button>

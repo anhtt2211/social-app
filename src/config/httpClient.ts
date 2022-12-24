@@ -1,13 +1,13 @@
-import { AxiosRequestConfig } from "./../../node_modules/axios/index.d";
-import axios from "axios";
+import axios from 'axios';
 
-const httpClient = axios.create({
-  baseURL: "http://localhost:8000/api/",
+export const httpClient = axios.create({
+  baseURL: 'https://api.realworld.io/api/',
+  // baseURL: "http://localhost:8000/api/",
 });
 
 httpClient.interceptors.request.use((config) => {
   let reqConfig = { ...config };
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   if (token) {
     reqConfig = {
@@ -20,5 +20,3 @@ httpClient.interceptors.request.use((config) => {
 });
 
 httpClient.interceptors.response.use((response) => response.data);
-
-export default httpClient;
