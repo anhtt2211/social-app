@@ -1,10 +1,10 @@
 import { Fragment } from 'react';
 import { HashRouter, NavLink } from 'react-router-dom';
-// import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from '../../app/hooks';
 import { User } from '../../types/user';
 
 export function Header() {
-  //   const { user } = useAppSelector((state) => state.user);
+  const { user, loginIn } = useAppSelector((state) => state.auth);
 
   return (
     <nav className="py-4">
@@ -16,11 +16,7 @@ export function Header() {
           <HashRouter>
             <NavItem text="Home" href="/" />
 
-            <GuestLinks />
-            {/* {user.match({
-              none: () => <GuestLinks />,
-              some: (user) => <UserLinks user={user} />,
-            })} */}
+            {loginIn ? <UserLinks user={user} /> : <GuestLinks />}
           </HashRouter>
         </ul>
       </div>

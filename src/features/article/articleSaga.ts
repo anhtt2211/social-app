@@ -1,3 +1,4 @@
+import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { ArticleRO, MultipleArticles } from 'types';
 import { getArticleViaSlug, getGlobalFeeds } from './articleAPI';
@@ -20,9 +21,9 @@ function* fetchGlobalArticles() {
   }
 }
 
-function* fetchArticle(action: any) {
+function* fetchArticle({ payload }: PayloadAction<string>) {
   try {
-    const article: ArticleRO = yield call(getArticleViaSlug, action.payload);
+    const article: ArticleRO = yield call(getArticleViaSlug, payload);
 
     yield put(loadArticleSuccess(article));
   } catch (error) {

@@ -1,19 +1,18 @@
-import { Fragment } from 'react';
-import {
-  HashRouter,
-  Redirect,
-  Route,
-  RouteProps,
-  Switch,
-} from 'react-router-dom';
-import { Footer } from './components/Footer';
+import { Fragment, useEffect } from 'react';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Header } from './components/Header';
-import { HomePage } from './pages/home-page/home-page';
-import { ArticlePage } from './pages/article-page/article-page';
+import { store } from 'app/store';
+import { loadUserRequest } from 'features/auth/authSlice';
 import { SignInPage } from 'pages/sign-in/sign-in';
 import { SignUpPage } from 'pages/sign-up';
+import { ArticlePage } from './pages/article-page/article-page';
+import { HomePage } from './pages/home-page/home-page';
 
 function App() {
+  useEffect(() => {
+    load();
+  }, []);
+
   return (
     <HashRouter>
       <Fragment>
@@ -32,10 +31,17 @@ function App() {
             <SignUpPage />
           </Route>
         </Switch>
-        {/* <Footer /> */}
       </Fragment>
     </HashRouter>
   );
 }
 
 export default App;
+
+function load() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    store.dispatch(loadUserRequest());
+  }
+}

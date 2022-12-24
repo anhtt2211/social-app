@@ -18,3 +18,14 @@ export interface UserForRegistration {
   email: string;
   password: string;
 }
+
+export interface UserRO {
+  user: User;
+}
+
+export interface SignJWT {
+  id: number;
+  username: string;
+  email: string;
+  exp: number;
+}
