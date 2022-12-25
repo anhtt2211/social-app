@@ -6,12 +6,11 @@ import { CommentForm } from './CommentForm';
 export function CommentSection({
   user,
   article,
-  commentSection: { submittingComment, commentBody, comments },
+  comments,
 }: {
   user: User;
   article: Article;
-  commentSection?: any;
-  //   commentSection?: CommentSectionState;
+  comments: Comment[];
 }) {
   return (
     <div className="flex flex-wrap">
@@ -36,7 +35,7 @@ export function CommentSection({
             ))}
           </Fragment>
         ) : (
-          <div>Loading comments...</div>
+          <div className="mt-6">Loading comments...</div>
         )}
       </div>
     </div>

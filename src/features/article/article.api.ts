@@ -28,10 +28,6 @@ export async function getArticleViaSlug(slug: string): Promise<ArticleRO> {
   return httpClient.get(`articles/${slug}`);
 }
 
-export async function getArticleComments(slug: string): Promise<ArticleRO> {
-  return httpClient.get(`articles/${slug}/comments`);
-}
-
 export async function favoriteArticle(slug: string): Promise<ArticleRO> {
   return httpClient.post(`articles/${slug}/favorite`);
 }

@@ -7,3 +7,7 @@ export interface Comment {
   body: string;
   author: Profile;
 }
+
+export interface CommentsRO {
+  comments: Comment[];
+}

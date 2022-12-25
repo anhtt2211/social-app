@@ -12,24 +12,7 @@ import {
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
 import { Article } from 'types';
-
-const comments = [
-  {
-    id: 39272,
-    createdAt: '2022-12-24T06:22:00.023Z',
-    updatedAt: '2022-12-24T06:22:00.023Z',
-    body: 'abcd',
-    author: {
-      username: 'abcdxyz.wata',
-      bio: null,
-      image: 'https://api.realworld.io/images/smiley-cyrus.jpeg',
-      following: false,
-    },
-  },
-];
-const commentSection = {
-  comments,
-};
+import { loadArticleCommentRequest } from './article-page.slice';
 
 interface Params {
   slug: string;
@@ -38,6 +21,7 @@ interface Params {
 export const ArticlePage = () => {
   const { slug } = useParams<Params>();
   const { article } = useAppSelector((state) => state.article);
+  const { comments } = useAppSelector((state) => state.articlePage);
 
   useEffect(() => {
     load(slug);
@@ -65,7 +49,7 @@ export const ArticlePage = () => {
         <CommentSection
           user={article.author}
           article={article}
-          commentSection={commentSection}
+          comments={comments}
         />
       </div>
     </div>
@@ -209,4 +193,5 @@ function OwnerArticleMetaActions({
 
 function load(slug: string) {
   store.dispatch(loadArticleRequest(slug));
+  store.dispatch(loadArticleCommentRequest(slug));
 }

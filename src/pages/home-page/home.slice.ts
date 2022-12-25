@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ETab } from 'types';
-import { MultipleTags } from 'types/tag';
 
 export interface HomeState {
   tab: string;

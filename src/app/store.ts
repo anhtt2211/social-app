@@ -6,6 +6,7 @@ import articleReducer from 'features/article/article.slice';
 import tagReducer from 'features/tag/tag.slice';
 import authReducer from 'features/auth/auth.slice';
 import homeReducer from 'pages/home-page/home.slice';
+import articlePageReducer from 'pages/article-page/article-page.slice';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     tag: tagReducer,
     auth: authReducer,
     home: homeReducer,
+    articlePage: articlePageReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
