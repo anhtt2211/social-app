@@ -14,9 +14,6 @@ import {
   favoriteArticleFailure,
   favoriteArticleReq,
   favoriteArticleSuccess,
-  loadArticleFailure,
-  loadArticleRequest,
-  loadArticleSuccess,
   loadGlobalArticlesFailure,
   loadGlobalArticlesRequest,
   loadGlobalArticlesSuccess,
@@ -24,6 +21,11 @@ import {
   loadYourFeedsReq,
   loadYourFeedsSuccess,
 } from './article.slice';
+import {
+  loadArticleFailure,
+  loadArticleRequest,
+  loadArticleSuccess,
+} from 'pages/article-page/article-page.slice';
 
 function* fetchGlobalArticles({ payload }: PayloadAction<ArticlesFilters>) {
   try {

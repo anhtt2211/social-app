@@ -27,7 +27,7 @@ export function CommentForm({
       </div>
 
       <div className="bg-[#f5f5f5] p-4 flex justify-between items-center">
-        <img src={image || undefined} className="rounded-full" />
+        <img src={image || undefined} className="rounded-full w-8 h-8" />
         <button
           className="bg-green text-white text-sm font-semibold py-1 px-2 rounded"
           disabled={submittingComment}

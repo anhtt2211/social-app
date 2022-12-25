@@ -34,7 +34,7 @@ export const ArticlePreview = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Link to={`/profile/${username}`}>
-            <img src={image || undefined} className="rounded-full" />
+            <img src={image || undefined} className="rounded-full w-8 h-8" />
           </Link>
           <div className="flex flex-col">
             <Link

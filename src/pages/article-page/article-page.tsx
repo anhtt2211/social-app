@@ -5,14 +5,14 @@ import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
 import { DATE_FORMAT } from 'constant';
-import {
-  loadArticleRequest,
-  resetArticle,
-} from 'features/article/article.slice';
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
 import { Article } from 'types';
-import { loadArticleCommentRequest } from './article-page.slice';
+import {
+  loadArticleCommentRequest,
+  loadArticleRequest,
+  resetArticle,
+} from './article-page.slice';
 
 interface Params {
   slug: string;
@@ -20,8 +20,7 @@ interface Params {
 
 export const ArticlePage = () => {
   const { slug } = useParams<Params>();
-  const { article } = useAppSelector((state) => state.article);
-  const { comments } = useAppSelector((state) => state.articlePage);
+  const { article, comments } = useAppSelector((state) => state.articlePage);
 
   useEffect(() => {
     load(slug);
@@ -71,18 +70,18 @@ function ArticlePageBanner({ article }: { article: Article }) {
 function ArticleMeta({ article }: { article: Article }) {
   return (
     <div className="mt-8">
-      <div className="flex space-x-2">
+      <div className="flex items-center space-x-2">
         <ArticleAuthorInfo article={article} />
 
-        {/* <OwnerArticleMetaActions
+        <OwnerArticleMetaActions
           article={article}
           //   deletingArticle={deletingArticle}
-        /> */}
-        <NonOwnerArticleMetaActions
+        />
+        {/* <NonOwnerArticleMetaActions
           article={article}
           //   submittingFavorite={submittingFavorite}
           //   submittingFollow={submittingFollow}
-        />
+        /> */}
       </div>
     </div>
   );
@@ -100,7 +99,7 @@ function ArticleAuthorInfo({
     <Fragment>
       <div className="flex items-center space-x-3">
         <Link to={`/profile/${username}`}>
-          <img src={image || undefined} className="rounded-full" />
+          <img src={image || undefined} className="rounded-full w-8 h-8" />
         </Link>
         <div className="flex flex-col">
           <Link className="author" to={`/profile/${username}`}>
@@ -138,7 +137,7 @@ function NonOwnerArticleMetaActions({
         //   'btn-outline-secondary': !following,
         //   'btn-secondary': following,
         // })}
-        className="text-sm px-2 py-1 !ml-10 border-1 border-solid border-[#ccc] text-[#ccc] rounded"
+        className="text-xs px-2 py-1 !ml-10 border-1 border-solid border-[#ccc] text-[#ccc] rounded"
         disabled={submittingFollow}
         // onClick={() => onFollow(username, following)}
       >
@@ -154,7 +153,7 @@ function NonOwnerArticleMetaActions({
         //   'btn-primary': favorited,
         // })}
         disabled={submittingFavorite}
-        className="text-sm px-2 py-1 border-1 border-solid border-green text-green rounded"
+        className="text-xs px-2 py-1 border-1 border-solid border-green text-green rounded"
         // onClick={() => onclassName='text-sm'Favorite(slug, favorited)}
       >
         <i className="ion-heart"></i>
@@ -174,13 +173,13 @@ function OwnerArticleMetaActions({
 }) {
   return (
     <Fragment>
-      <button className="btn btn-outline-secondary btn-sm">
+      <button className="text-xs px-2 py-1 !ml-10 border-1 border-solid border-[#ccc] text-[#ccc] rounded">
         <i className="ion-plus-round"></i>
         &nbsp; Edit Article
       </button>
       &nbsp;
       <button
-        className="btn btn-outline-danger btn-sm"
+        className="text-xs px-2 py-1 border-1 border-solid border-[#b85c5c] text-[#b85c5c] rounded"
         disabled={deletingArticle}
         // onClick={() => onDeleteArticle(slug)}
       >
