@@ -3,11 +3,8 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { Article } from 'types';
-import { DATE_FORMAT } from 'constant';
+import { btnOutlintPrimary, btnPrimary, DATE_FORMAT } from 'constant';
 import { TagList } from './TagList';
-
-const btnPrimary = 'bg-green text-white';
-const btnOutlintPrimary = 'border-solid border-[1px] border-green text-green';
 
 export const ArticlePreview = ({
   article: {
@@ -20,9 +17,17 @@ export const ArticlePreview = ({
     tagList,
     author: { image, username },
   },
+  onFavoriteArticle,
 }: {
   article: Article;
   isSubmitting?: boolean;
+  onFavoriteArticle: ({
+    slug,
+    favorited,
+  }: {
+    slug: string;
+    favorited: boolean;
+  }) => void;
 }) => {
   return (
     <div className="py-6 border-t-1">
@@ -48,7 +53,7 @@ export const ArticlePreview = ({
             favorited ? btnPrimary : btnOutlintPrimary
           }`}
           aria-label="Toggle Favorite"
-          // disabled={isSubmitting}
+          onClick={() => onFavoriteArticle({ slug, favorited })}
         >
           <i className="ion-heart"></i> {favoritesCount}
         </button>

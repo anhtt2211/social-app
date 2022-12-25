@@ -1,8 +1,18 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
+
+import { store } from 'app/store';
 import { ArticleRO, MultipleArticles } from 'types';
-import { getArticleViaSlug, getGlobalFeeds } from './articleAPI';
 import {
+  favoriteArticle,
+  getArticleViaSlug,
+  getGlobalFeeds,
+  unFavoriteArticle,
+} from './articleAPI';
+import {
+  favoriteArticleFailure,
+  favoriteArticleReq,
+  favoriteArticleSuccess,
   loadArticleFailure,
   loadArticleRequest,
   loadArticleSuccess,
@@ -31,7 +41,28 @@ function* fetchArticle({ payload }: PayloadAction<string>) {
   }
 }
 
+function* favoritedArticle({
+  payload: { slug, favorited },
+}: PayloadAction<{ slug: string; favorited: boolean }>) {
+  try {
+    const isLogin = store.getState().auth.loginIn;
+    if (!isLogin) {
+      window.location.hash = '#/sign-in';
+      return;
+    }
+
+    const article: ArticleRO = favorited
+      ? yield call(unFavoriteArticle, slug)
+      : yield call(favoriteArticle, slug);
+
+    yield put(favoriteArticleSuccess(article));
+  } catch (error) {
+    yield put(favoriteArticleFailure());
+  }
+}
+
 export function* articleSaga() {
   yield takeLatest(loadGlobalArticlesRequest.type, fetchGlobalArticles);
   yield takeLatest(loadArticleRequest.type, fetchArticle);
+  yield takeLatest(favoriteArticleReq.type, favoritedArticle);
 }

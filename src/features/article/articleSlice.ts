@@ -66,6 +66,19 @@ const slice = createSlice({
       state.error = action.payload;
     },
 
+    favoriteArticleReq: (
+      state,
+      {
+        payload: { slug, favorited },
+      }: PayloadAction<{ slug: string; favorited: boolean }>
+    ) => {},
+    favoriteArticleSuccess: (state, { payload }: PayloadAction<ArticleRO>) => {
+      state.articles = state.articles.map((article) =>
+        article.slug === payload.article.slug ? payload.article : article
+      );
+    },
+    favoriteArticleFailure: (state) => {},
+
     resetArticle: (state) => {
       state.article = {
         slug: '',
@@ -96,6 +109,9 @@ export const {
   loadArticleRequest,
   loadArticleSuccess,
   loadArticleFailure,
+  favoriteArticleReq,
+  favoriteArticleSuccess,
+  favoriteArticleFailure,
   resetArticle,
 } = slice.actions;
 

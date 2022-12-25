@@ -33,7 +33,7 @@ function* fetchUser() {
 
     yield put(loadUserSuccess(userInfo));
   } catch (error) {
-    yield put(loadUserFailure());
+    yield put(loadUserFailure(error));
   }
 }
 

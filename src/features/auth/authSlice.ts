@@ -38,8 +38,9 @@ const slice = createSlice({
       state.user = payload.user;
       state.loginIn = true;
     },
-    loadUserFailure: (state) => {
+    loadUserFailure: (state, action) => {
       state.loginIn = false;
+      state.error = action.payload;
     },
   },
 });
