@@ -25,9 +25,9 @@ import {
   loadYourFeedsSuccess,
 } from './articleSlice';
 
-function* fetchGlobalArticles() {
+function* fetchGlobalArticles({ payload }: PayloadAction<ArticlesFilters>) {
   try {
-    const articles: MultipleArticles = yield call(getGlobalFeeds);
+    const articles: MultipleArticles = yield call(getGlobalFeeds, payload);
 
     yield put(loadGlobalArticlesSuccess(articles));
   } catch (error) {

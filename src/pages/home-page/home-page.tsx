@@ -6,9 +6,6 @@ import { store } from 'app/store';
 import { loadGlobalArticlesRequest } from 'features/article/articleSlice';
 import { ArticlesViewer } from 'features/article/components/ArticlesViewer';
 import { loadTagsRequest } from 'features/tag/tagSlice';
-import { ArticlesFilters } from 'types';
-
-const queryDefault: ArticlesFilters = {};
 
 export const HomePage = () => {
   useEffect(() => {
@@ -55,13 +52,13 @@ function HomeSidebar() {
       {tags.length > 0 ? (
         <div className="block">
           {tags.map((tag) => (
-            <a
+            <span
               key={tag}
-              href="#"
-              className="px-2 rounded-3xl text-[#fff] text-sm py-1 bg-[#818a91] mr-1 inline-block mb-1"
+              className="cursor-pointer px-2 rounded-3xl text-[#fff] text-sm py-1 bg-[#818a91] mr-1 inline-block mb-1"
+              onClick={() => loadArticlesByTag(tag)}
             >
               {tag}
-            </a>
+            </span>
           ))}
         </div>
       ) : (
@@ -71,7 +68,11 @@ function HomeSidebar() {
   );
 }
 
-async function load() {
-  store.dispatch(loadGlobalArticlesRequest());
+function load() {
+  store.dispatch(loadGlobalArticlesRequest({}));
   store.dispatch(loadTagsRequest());
+}
+
+function loadArticlesByTag(tag: string) {
+  store.dispatch(loadGlobalArticlesRequest({ tag }));
 }

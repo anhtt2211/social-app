@@ -80,7 +80,7 @@ function onTabChange(tab: string) {
   store.dispatch(changeTab(tab));
 
   if (tab === ETab.GlobalFeed) {
-    store.dispatch(loadGlobalArticlesRequest());
+    store.dispatch(loadGlobalArticlesRequest({}));
   }
   if (tab === ETab.YourFeed) {
     store.dispatch(loadYourFeedsReq({}));

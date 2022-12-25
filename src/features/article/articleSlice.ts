@@ -38,7 +38,10 @@ const slice = createSlice({
   initialState,
   reducers: {
     startLoadingArticles: () => initialState,
-    loadGlobalArticlesRequest: (state) => {
+    loadGlobalArticlesRequest: (
+      state,
+      action: PayloadAction<ArticlesFilters>
+    ) => {
       state.isLoading = true;
     },
     loadGlobalArticlesSuccess: (
