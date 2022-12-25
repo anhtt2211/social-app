@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Article, ArticleRO, Comment, CommentsRO } from 'types';
+import { Article, ArticleRO, Comment, CommentsRO, ProfileRO } from 'types';
 
 export interface ArticlePageState {
   article: Article;
@@ -48,6 +48,15 @@ const slice = createSlice({
       state.error = action.payload;
     },
 
+    favoriteArticlePageRequest: (state, action) => {},
+    favoriteArticlePageSuccess: (
+      state,
+      { payload }: PayloadAction<ArticleRO>
+    ) => {
+      state.article = payload.article;
+    },
+    favoriteArticlePageFailure: (state, action) => {},
+
     loadArticleCommentRequest: (
       state,
       { payload }: PayloadAction<string>
@@ -59,6 +68,15 @@ const slice = createSlice({
       state.comments = payload.comments;
     },
     loadArticleCommentFailure: (state, action) => {},
+
+    followAuthorRequest: (
+      state,
+      { payload }: PayloadAction<{ username: string; follow: boolean }>
+    ) => {},
+    followAuthorSuccess: (state, { payload }: PayloadAction<ProfileRO>) => {
+      state.article.author = payload.profile;
+    },
+    followAuthorFailure: (state) => {},
 
     resetArticle: (state) => {
       state.article = {
@@ -87,9 +105,15 @@ export const {
   loadArticleRequest,
   loadArticleSuccess,
   loadArticleFailure,
+  favoriteArticlePageRequest,
+  favoriteArticlePageSuccess,
+  favoriteArticlePageFailure,
   loadArticleCommentRequest,
   loadArticleCommentSuccess,
   loadArticleCommentFailure,
+  followAuthorRequest,
+  followAuthorSuccess,
+  followAuthorFailure,
   resetArticle,
 } = slice.actions;
 

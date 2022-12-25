@@ -22,6 +22,8 @@ import {
   loadYourFeedsSuccess,
 } from './article.slice';
 import {
+  favoriteArticlePageRequest,
+  favoriteArticlePageSuccess,
   loadArticleFailure,
   loadArticleRequest,
   loadArticleSuccess,
@@ -64,10 +66,11 @@ function* fetchArticle({ payload }: PayloadAction<string>) {
 
 function* favoritedArticle({
   payload: { slug, favorited },
+  type,
 }: PayloadAction<{ slug: string; favorited: boolean }>) {
   try {
-    const isLogin = store.getState().auth.loginIn;
-    if (!isLogin) {
+    const { loginIn } = store.getState().auth;
+    if (!loginIn) {
       window.location.hash = '#/sign-in';
       return;
     }
@@ -76,7 +79,11 @@ function* favoritedArticle({
       ? yield call(unFavoriteArticle, slug)
       : yield call(favoriteArticle, slug);
 
-    yield put(favoriteArticleSuccess(article));
+    if (type === 'article/favoriteArticleReq') {
+      yield put(favoriteArticleSuccess(article));
+    } else {
+      yield put(favoriteArticlePageSuccess(article));
+    }
   } catch (error) {
     yield put(favoriteArticleFailure());
   }
@@ -87,4 +94,5 @@ export function* articleSaga() {
   yield takeLatest(loadYourFeedsReq.type, fetchYourFeeds);
   yield takeLatest(loadArticleRequest.type, fetchArticle);
   yield takeLatest(favoriteArticleReq.type, favoritedArticle);
+  yield takeLatest(favoriteArticlePageRequest.type, favoritedArticle);
 }

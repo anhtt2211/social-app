@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { Article } from 'types';
-import { btnOutlintPrimary, btnPrimary, DATE_FORMAT } from 'constant';
+import { btnOutlinePrimary, btnPrimary, DATE_FORMAT } from 'constant';
 import { TagList } from './TagList';
 
 export const ArticlePreview = ({
@@ -50,7 +50,7 @@ export const ArticlePreview = ({
         </div>
         <button
           className={`p-1 px-2 rounded ${
-            favorited ? btnPrimary : btnOutlintPrimary
+            favorited ? btnPrimary : btnOutlinePrimary
           }`}
           aria-label="Toggle Favorite"
           onClick={() => onFavoriteArticle({ slug, favorited })}

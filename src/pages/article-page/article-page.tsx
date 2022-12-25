@@ -4,11 +4,13 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
-import { DATE_FORMAT } from 'constant';
+import { btnOutlinePrimary, btnPrimary, DATE_FORMAT } from 'constant';
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
 import { Article } from 'types';
 import {
+  favoriteArticlePageRequest,
+  followAuthorRequest,
   loadArticleCommentRequest,
   loadArticleRequest,
   resetArticle,
@@ -68,20 +70,22 @@ function ArticlePageBanner({ article }: { article: Article }) {
 }
 
 function ArticleMeta({ article }: { article: Article }) {
+  const { username } = useAppSelector((state) => state.auth.user);
+  const { isLoading } = useAppSelector((state) => state.articlePage);
+
   return (
     <div className="mt-8">
       <div className="flex items-center space-x-2">
         <ArticleAuthorInfo article={article} />
-
-        <OwnerArticleMetaActions
-          article={article}
-          //   deletingArticle={deletingArticle}
-        />
-        {/* <NonOwnerArticleMetaActions
-          article={article}
-          //   submittingFavorite={submittingFavorite}
-          //   submittingFollow={submittingFollow}
-        /> */}
+        {!isLoading ? (
+          <>
+            {article.author.username === username ? (
+              <OwnerArticleMetaActions article={article} />
+            ) : (
+              <NonOwnerArticleMetaActions article={article} />
+            )}
+          </>
+        ) : null}
       </div>
     </div>
   );
@@ -121,40 +125,26 @@ function NonOwnerArticleMetaActions({
     favorited,
     author: { username, following },
   },
-  submittingFavorite,
-  submittingFollow,
 }: {
   article: Article;
-  submittingFavorite?: boolean;
-  submittingFollow?: boolean;
 }) {
   return (
     <Fragment>
       <button
-        // className={classObjectToClassName({
-        //   btn: true,
-        //   'btn-sm': true,
-        //   'btn-outline-secondary': !following,
-        //   'btn-secondary': following,
-        // })}
-        className="text-xs px-2 py-1 !ml-10 border-1 border-solid border-[#ccc] text-[#ccc] rounded"
-        disabled={submittingFollow}
-        // onClick={() => onFollow(username, following)}
+        className={`text-xs px-2 py-1 !ml-10 border-1 bg-white border-solid border-[#ccc] rounded hover:opacity-70 ${
+          following ? 'text-black' : 'text-[#ccc]'
+        }`}
+        onClick={() => onFollow({ username, follow: following })}
       >
         <i className="ion-plus-round"></i>
         &nbsp; {(following ? 'Unfollow ' : 'Follow ') + username}
       </button>
       &nbsp;
       <button
-        // className={classObjectToClassName({
-        //   btn: true,
-        //   'btn-sm': true,
-        //   'btn-outline-primary': !favorited,
-        //   'btn-primary': favorited,
-        // })}
-        disabled={submittingFavorite}
-        className="text-xs px-2 py-1 border-1 border-solid border-green text-green rounded"
-        // onClick={() => onclassName='text-sm'Favorite(slug, favorited)}
+        className={`text-xs px-2 py-1 border-1 border-solid border-green rounded hover:opacity-70 ${
+          favorited ? btnPrimary : btnOutlinePrimary
+        }`}
+        onClick={() => onFavoriteArticle({ slug, favorited })}
       >
         <i className="ion-heart"></i>
         &nbsp; {(favorited ? 'Unfavorite ' : 'Favorite ') + 'Article'}
@@ -173,13 +163,13 @@ function OwnerArticleMetaActions({
 }) {
   return (
     <Fragment>
-      <button className="text-xs px-2 py-1 !ml-10 border-1 border-solid border-[#ccc] text-[#ccc] rounded">
+      <button className="text-xs px-2 py-1 !ml-10 border-1 border-solid border-[#ccc] text-[#ccc] rounded hover:opacity-70">
         <i className="ion-plus-round"></i>
         &nbsp; Edit Article
       </button>
       &nbsp;
       <button
-        className="text-xs px-2 py-1 border-1 border-solid border-[#b85c5c] text-[#b85c5c] rounded"
+        className="text-xs px-2 py-1 border-1 border-solid border-[#b85c5c] text-[#b85c5c] rounded hover:opacity-70"
         disabled={deletingArticle}
         // onClick={() => onDeleteArticle(slug)}
       >
@@ -193,4 +183,18 @@ function OwnerArticleMetaActions({
 function load(slug: string) {
   store.dispatch(loadArticleRequest(slug));
   store.dispatch(loadArticleCommentRequest(slug));
+}
+
+function onFavoriteArticle({
+  slug,
+  favorited,
+}: {
+  slug: string;
+  favorited: boolean;
+}) {
+  store.dispatch(favoriteArticlePageRequest({ slug, favorited }));
+}
+
+function onFollow({ username, follow }: { username: string; follow: boolean }) {
+  store.dispatch(followAuthorRequest({ username, follow }));
 }
