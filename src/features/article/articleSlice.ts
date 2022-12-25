@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Article, ArticleRO, MultipleArticles } from 'types';
+import { Article, ArticleRO, ArticlesFilters, MultipleArticles } from 'types';
 
 export interface ArticleState {
   articles: readonly Article[];
@@ -54,6 +54,22 @@ const slice = createSlice({
       state.isLoading = false;
     },
 
+    loadYourFeedsReq: (state, action: PayloadAction<ArticlesFilters>) => {
+      state.isLoading = true;
+    },
+    loadYourFeedsSuccess: (
+      state,
+      { payload }: PayloadAction<MultipleArticles>
+    ) => {
+      state.articles = payload.articles;
+      state.articlesCount = payload.articlesCount;
+      state.isLoading = false;
+    },
+    loadYourFeedsFailure: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload.message;
+    },
+
     loadArticleRequest: (state, { payload }: PayloadAction<string>) => {
       state.isLoading = true;
     },
@@ -106,6 +122,9 @@ export const {
   loadGlobalArticlesRequest,
   loadGlobalArticlesSuccess,
   loadGlobalArticlesFailure,
+  loadYourFeedsReq,
+  loadYourFeedsSuccess,
+  loadYourFeedsFailure,
   loadArticleRequest,
   loadArticleSuccess,
   loadArticleFailure,

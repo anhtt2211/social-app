@@ -1,27 +1,25 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment } from 'react';
+
+import { useAppSelector } from 'app/hooks';
+import { store } from 'app/store';
+import { changeTab } from 'pages/home-page/homeSlice';
+import { ETab } from 'types';
+import { loadGlobalArticlesRequest, loadYourFeedsReq } from '../articleSlice';
 import { ArticleList } from './ArticleList';
 
-export enum ETab {
-  YourFeed = 'Your feed',
-  GlobalFeed = 'Global feed',
-}
-
 export const ArticlesViewer = ({}: {}) => {
-  const [selectedTab, setSelectedTab] = useState<string>(ETab.GlobalFeed);
+  const { tab } = useAppSelector((state) => state.home);
+  const { isLoading } = useAppSelector((state) => state.article);
   const tabs = [ETab.GlobalFeed, ETab.YourFeed];
-
-  const onTabChange = (tab: string) => {
-    setSelectedTab(tab);
-  };
 
   return (
     <Fragment>
-      <ArticleTabSet
-        tabs={tabs}
-        selectedTab={selectedTab}
-        onTabChange={onTabChange}
-      />
-      <ArticleList />
+      <ArticleTabSet tabs={tabs} selectedTab={tab} onTabChange={onTabChange} />
+      {isLoading ? (
+        <div className="mt-6">Loading articles...</div>
+      ) : (
+        <ArticleList />
+      )}
     </Fragment>
   );
 };
@@ -76,4 +74,15 @@ function Tab({
       </a>
     </li>
   );
+}
+
+function onTabChange(tab: string) {
+  store.dispatch(changeTab(tab));
+
+  if (tab === ETab.GlobalFeed) {
+    store.dispatch(loadGlobalArticlesRequest());
+  }
+  if (tab === ETab.YourFeed) {
+    store.dispatch(loadYourFeedsReq({}));
+  }
 }

@@ -2,11 +2,12 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import { store } from 'app/store';
-import { ArticleRO, MultipleArticles } from 'types';
+import { ArticleRO, ArticlesFilters, MultipleArticles } from 'types';
 import {
   favoriteArticle,
   getArticleViaSlug,
   getGlobalFeeds,
+  getYourFeeds,
   unFavoriteArticle,
 } from './articleAPI';
 import {
@@ -19,6 +20,9 @@ import {
   loadGlobalArticlesFailure,
   loadGlobalArticlesRequest,
   loadGlobalArticlesSuccess,
+  loadYourFeedsFailure,
+  loadYourFeedsReq,
+  loadYourFeedsSuccess,
 } from './articleSlice';
 
 function* fetchGlobalArticles() {
@@ -28,6 +32,16 @@ function* fetchGlobalArticles() {
     yield put(loadGlobalArticlesSuccess(articles));
   } catch (error) {
     yield put(loadGlobalArticlesFailure(error));
+  }
+}
+
+function* fetchYourFeeds({ payload }: PayloadAction<ArticlesFilters>) {
+  try {
+    const articles: MultipleArticles = yield call(getYourFeeds, payload);
+
+    yield put(loadYourFeedsSuccess(articles));
+  } catch (error) {
+    yield put(loadYourFeedsFailure(error));
   }
 }
 
@@ -63,6 +77,7 @@ function* favoritedArticle({
 
 export function* articleSaga() {
   yield takeLatest(loadGlobalArticlesRequest.type, fetchGlobalArticles);
+  yield takeLatest(loadYourFeedsReq.type, fetchYourFeeds);
   yield takeLatest(loadArticleRequest.type, fetchArticle);
   yield takeLatest(favoriteArticleReq.type, favoritedArticle);
 }

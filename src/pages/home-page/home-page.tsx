@@ -6,6 +6,9 @@ import { store } from 'app/store';
 import { loadGlobalArticlesRequest } from 'features/article/articleSlice';
 import { ArticlesViewer } from 'features/article/components/ArticlesViewer';
 import { loadTagsRequest } from 'features/tag/tagSlice';
+import { ArticlesFilters } from 'types';
+
+const queryDefault: ArticlesFilters = {};
 
 export const HomePage = () => {
   useEffect(() => {

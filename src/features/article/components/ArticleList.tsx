@@ -11,13 +11,19 @@ export const ArticleList = () => {
   return (
     <Fragment>
       <div className="px-2">
-        {articles.map((article) => (
-          <ArticlePreview
-            key={article.slug}
-            article={article}
-            onFavoriteArticle={onFavoriteArticle}
-          />
-        ))}
+        {articles.length === 0 ? (
+          <div className="mt-6">No articles are here... yet</div>
+        ) : (
+          <>
+            {articles.map((article) => (
+              <ArticlePreview
+                key={article.slug}
+                article={article}
+                onFavoriteArticle={onFavoriteArticle}
+              />
+            ))}
+          </>
+        )}
       </div>
     </Fragment>
   );

@@ -29,3 +29,8 @@ export interface MultipleArticles {
 export interface ArticleRO {
   article: Article;
 }
+
+export enum ETab {
+  YourFeed = 'Your feed',
+  GlobalFeed = 'Global feed',
+}
