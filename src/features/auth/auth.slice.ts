@@ -6,6 +6,7 @@ export interface AuthState {
   user: User;
   loginIn: boolean;
   error: string;
+  loading: boolean;
 }
 
 const initialState: AuthState = {
@@ -17,6 +18,7 @@ const initialState: AuthState = {
   },
   loginIn: false,
   error: '',
+  loading: true,
 };
 
 const slice = createSlice({
@@ -37,10 +39,12 @@ const slice = createSlice({
     loadUserSuccess: (state, { payload }: PayloadAction<UserRO>) => {
       state.user = payload.user;
       state.loginIn = true;
+      state.loading = false;
     },
     loadUserFailure: (state, action) => {
-      state.loginIn = false;
       state.error = action.payload;
+      state.loginIn = false;
+      state.loading = false;
     },
   },
 });

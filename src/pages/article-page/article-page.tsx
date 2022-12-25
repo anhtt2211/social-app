@@ -16,12 +16,8 @@ import {
   resetArticle,
 } from './article-page.slice';
 
-interface Params {
-  slug: string;
-}
-
 export const ArticlePage = () => {
-  const { slug } = useParams<Params>();
+  const { slug } = useParams<{ slug: string }>();
   const { article, comments } = useAppSelector((state) => state.articlePage);
 
   useEffect(() => {

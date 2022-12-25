@@ -7,31 +7,36 @@ import { SignInPage } from 'pages/sign-in/sign-in';
 import { SignUpPage } from 'pages/sign-up';
 import { ArticlePage } from './pages/article-page/article-page';
 import { HomePage } from './pages/home-page/home-page';
+import { useAppSelector } from 'app/hooks';
 
 function App() {
+  const { loading } = useAppSelector((state) => state.auth);
+
   useEffect(() => {
     load();
   }, []);
 
   return (
     <HashRouter>
-      <Fragment>
-        <Header />
-        <Switch>
-          <Route path="/article/:slug">
-            <ArticlePage />
-          </Route>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route exact path="/sign-in">
-            <SignInPage />
-          </Route>
-          <Route exact path="/sign-up">
-            <SignUpPage />
-          </Route>
-        </Switch>
-      </Fragment>
+      {!loading ? (
+        <Fragment>
+          <Header />
+          <Switch>
+            <Route path="/article/:slug">
+              <ArticlePage />
+            </Route>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route exact path="/sign-in">
+              <SignInPage />
+            </Route>
+            <Route exact path="/sign-up">
+              <SignUpPage />
+            </Route>
+          </Switch>
+        </Fragment>
+      ) : null}
     </HashRouter>
   );
 }
