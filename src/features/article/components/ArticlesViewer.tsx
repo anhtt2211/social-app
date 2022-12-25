@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
-import { changeTab } from 'pages/home-page/homeSlice';
+import { changeTab } from 'pages/home-page/home.slice';
 import { ETab } from 'types';
-import { loadGlobalArticlesRequest, loadYourFeedsReq } from '../articleSlice';
+import { loadGlobalArticlesRequest, loadYourFeedsReq } from '../article.slice';
 import { ArticleList } from './ArticleList';
 
 export const ArticlesViewer = ({}: {}) => {
@@ -16,7 +16,7 @@ export const ArticlesViewer = ({}: {}) => {
     <Fragment>
       <ArticleTabSet tabs={tabs} selectedTab={tab} onTabChange={onTabChange} />
       {isLoading ? (
-        <div className="mt-6">Loading articles...</div>
+        <div className="mt-6 px-2">Loading articles...</div>
       ) : (
         <ArticleList />
       )}

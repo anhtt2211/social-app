@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { UserRO } from './../../types/user';
+import { UserRO } from '../../types/user';
 import {
   loadUserFailure,
   loadUserRequest,
@@ -8,8 +8,8 @@ import {
   signInFailure,
   signInRequest,
   signInSuccess,
-} from './authSlice';
-import { loadUser, signIn as login } from './authAPI';
+} from './auth.slice';
+import { loadUser, signIn as login } from './auth.api';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 function* signIn({

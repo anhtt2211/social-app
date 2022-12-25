@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FormGroup } from 'components/FormGroup';
 import { SignInForm } from 'features/auth/components/SignInForm';
 import { store } from 'app/store';
-import { signInRequest } from 'features/auth/authSlice';
+import { signInRequest } from 'features/auth/auth.slice';
 
 export const SignInPage = () => {
   const [formData, setFormData] = useState({

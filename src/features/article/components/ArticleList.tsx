@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
-import { favoriteArticleReq } from '../articleSlice';
+import { favoriteArticleReq } from '../article.slice';
 import { ArticlePreview } from './ArticlePreview';
 
 export const ArticleList = () => {

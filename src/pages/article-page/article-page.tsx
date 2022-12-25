@@ -8,7 +8,7 @@ import { DATE_FORMAT } from 'constant';
 import {
   loadArticleRequest,
   resetArticle,
-} from 'features/article/articleSlice';
+} from 'features/article/article.slice';
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
 import { Article } from 'types';

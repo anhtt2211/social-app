@@ -1,4 +1,4 @@
-import { MultipleTags } from './../../types/tag';
+import { MultipleTags } from '../../types/tag';
 import { httpClient } from 'config';
 
 export async function getTags(): Promise<MultipleTags> {

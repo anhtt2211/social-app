@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { MultipleTags } from 'types/tag';
-import { getTags } from './tagAPI';
-import { loadTagsRequest, loadTagsFailure, loadTagsSuccess } from './tagSlice';
+import { getTags } from './tag.api';
+import { loadTagsRequest, loadTagsFailure, loadTagsSuccess } from './tag.slice';
 
 function* fetchTags() {
   try {

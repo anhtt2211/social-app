@@ -9,7 +9,7 @@ import {
   getGlobalFeeds,
   getYourFeeds,
   unFavoriteArticle,
-} from './articleAPI';
+} from './article.api';
 import {
   favoriteArticleFailure,
   favoriteArticleReq,
@@ -23,7 +23,7 @@ import {
   loadYourFeedsFailure,
   loadYourFeedsReq,
   loadYourFeedsSuccess,
-} from './articleSlice';
+} from './article.slice';
 
 function* fetchGlobalArticles({ payload }: PayloadAction<ArticlesFilters>) {
   try {
@@ -47,6 +47,11 @@ function* fetchYourFeeds({ payload }: PayloadAction<ArticlesFilters>) {
 
 function* fetchArticle({ payload }: PayloadAction<string>) {
   try {
+    const { loginIn } = store.getState().auth;
+    if (!loginIn) {
+      window.location.hash = '#/sign-in';
+      return;
+    }
     const article: ArticleRO = yield call(getArticleViaSlug, payload);
 
     yield put(loadArticleSuccess(article));
