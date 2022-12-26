@@ -26,9 +26,7 @@ export const ProfilePage = () => {
     <div>
       <UserInfo user={profile} />
 
-      <div className="container mx-auto mt-6">
-        <ArticlesViewer />
-      </div>
+      <div className="container mx-auto mt-6">{/* <ArticlesViewer /> */}</div>
     </div>
   );
 };

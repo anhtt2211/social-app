@@ -30,7 +30,7 @@ export interface ArticleRO {
   article: Article;
 }
 
-export enum ETab {
+export enum TabEnum {
   YourFeed = 'Your feed',
   GlobalFeed = 'Global feed',
 }

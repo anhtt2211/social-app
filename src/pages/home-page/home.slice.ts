@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ETab } from 'types';
+import { TabEnum } from 'types';
 
 export interface HomeState {
   tab: string;
 }
 
 const initialState: HomeState = {
-  tab: ETab.GlobalFeed,
+  tab: TabEnum.GlobalFeed,
 };
 
 const slice = createSlice({

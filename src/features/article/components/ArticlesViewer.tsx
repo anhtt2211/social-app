@@ -3,15 +3,18 @@ import { Fragment } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
 import { changeTab } from 'pages/home-page/home.slice';
-import { ETab } from 'types';
+import { Article, TabEnum } from 'types';
 import { loadGlobalArticlesRequest, loadYourFeedsReq } from '../article.slice';
 import { ArticleList } from './ArticleList';
 
-export const ArticlesViewer = ({}: {}) => {
+interface Props {
+  articles: readonly Article[];
+  tabs: string[];
+  isLoading: boolean;
+}
+
+export const ArticlesViewer = ({ articles, isLoading, tabs }: Props) => {
   const { tab } = useAppSelector((state) => state.home);
-  const { isLoading } = useAppSelector((state) => state.article);
-  const { loginIn } = useAppSelector((state) => state.auth);
-  const tabs = loginIn ? [ETab.GlobalFeed, ETab.YourFeed] : [ETab.GlobalFeed]
 
   return (
     <Fragment>
@@ -19,7 +22,7 @@ export const ArticlesViewer = ({}: {}) => {
       {isLoading ? (
         <div className="mt-6 px-2">Loading articles...</div>
       ) : (
-        <ArticleList />
+        <ArticleList articles={articles} />
       )}
     </Fragment>
   );
@@ -80,10 +83,10 @@ function Tab({
 function onTabChange(tab: string) {
   store.dispatch(changeTab(tab));
 
-  if (tab === ETab.GlobalFeed) {
+  if (tab === TabEnum.GlobalFeed) {
     store.dispatch(loadGlobalArticlesRequest({}));
   }
-  if (tab === ETab.YourFeed) {
+  if (tab === TabEnum.YourFeed) {
     store.dispatch(loadYourFeedsReq({}));
   }
 }

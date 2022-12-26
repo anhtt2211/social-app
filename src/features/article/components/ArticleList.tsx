@@ -1,13 +1,15 @@
 import { Fragment } from 'react';
 
-import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
 import { favoriteArticleReq } from '../article.slice';
 import { ArticlePreview } from './ArticlePreview';
+import { Article } from 'types';
 
-export const ArticleList = () => {
-  const { articles } = useAppSelector((state) => state.article);
+interface Props {
+  articles: readonly Article[];
+}
 
+export const ArticleList = ({ articles }: Props) => {
   return (
     <Fragment>
       <div className="px-2">

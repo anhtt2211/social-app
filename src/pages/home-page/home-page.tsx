@@ -5,8 +5,15 @@ import { store } from 'app/store';
 import { loadGlobalArticlesRequest } from 'features/article/article.slice';
 import { ArticlesViewer } from 'features/article/components/ArticlesViewer';
 import { loadTagsRequest } from 'features/tag/tag.slice';
+import { TabEnum } from 'types';
 
 export const HomePage = () => {
+  const { articles, isLoading } = useAppSelector((state) => state.article);
+  const { loginIn } = useAppSelector((state) => state.auth);
+  const tabs = loginIn
+    ? [TabEnum.GlobalFeed, TabEnum.YourFeed]
+    : [TabEnum.GlobalFeed];
+
   useEffect(() => {
     load();
   }, []);
@@ -18,7 +25,11 @@ export const HomePage = () => {
       <div className="container mx-auto mt-6">
         <div className="flex flex-wrap">
           <div className="flex-[0_0_75%] max-w-[75%] px-4">
-            <ArticlesViewer />
+            <ArticlesViewer
+              articles={articles}
+              isLoading={isLoading}
+              tabs={tabs}
+            />
           </div>
 
           <div className="flex-[0_0_25%] max-w-[25%] px-4">
