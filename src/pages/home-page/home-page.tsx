@@ -2,10 +2,11 @@ import { useEffect } from 'react';
 
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
-import { loadGlobalArticlesRequest } from 'features/article/article.slice';
+import { loadArticlesRequest } from 'features/article/article.slice';
 import { ArticlesViewer } from 'features/article/components/ArticlesViewer';
 import { loadTagsRequest } from 'features/tag/tag.slice';
 import { TabEnum } from 'types';
+import { changeTab } from './home.slice';
 
 export const HomePage = () => {
   const { articles, isLoading } = useAppSelector((state) => state.article);
@@ -79,10 +80,11 @@ function HomeSidebar() {
 }
 
 function load() {
-  store.dispatch(loadGlobalArticlesRequest({}));
+  store.dispatch(changeTab(TabEnum.GlobalFeed));
+  store.dispatch(loadArticlesRequest({}));
   store.dispatch(loadTagsRequest());
 }
 
 function loadArticlesByTag(tag: string) {
-  store.dispatch(loadGlobalArticlesRequest({ tag }));
+  store.dispatch(loadArticlesRequest({ tag }));
 }

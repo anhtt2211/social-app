@@ -9,10 +9,20 @@ import {
 } from 'features/profile/profile.slice';
 import { useAppSelector } from 'app/hooks';
 import { ArticlesViewer } from 'features/article/components/ArticlesViewer';
+import { loadArticlesRequest } from 'features/article/article.slice';
+import { TabEnum } from 'types';
+import { changeTab } from 'pages/home-page/home.slice';
 
 export const ProfilePage = () => {
   const { username } = useParams<{ username: string }>();
-  const { profile } = useAppSelector((state) => state.profile);
+  const { loginIn } = useAppSelector((state) => state.auth);
+  const { profile, isLoading } = useAppSelector((state) => state.profile);
+  const { articles, isLoading: isLoadingArticles } = useAppSelector(
+    (state) => state.article
+  );
+  const tabs = loginIn
+    ? [TabEnum.MyArticles, TabEnum.FavoritedArticles]
+    : [TabEnum.MyArticles];
 
   useEffect(() => {
     load(username);
@@ -24,13 +34,25 @@ export const ProfilePage = () => {
 
   return (
     <div>
-      <UserInfo user={profile} />
+      {isLoading ? null : (
+        <div>
+          <UserInfo user={profile} />
 
-      <div className="container mx-auto mt-6">{/* <ArticlesViewer /> */}</div>
+          <div className="container mx-auto mt-6">
+            <ArticlesViewer
+              articles={articles}
+              isLoading={isLoadingArticles}
+              tabs={tabs}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 function load(username: string) {
+  store.dispatch(changeTab(TabEnum.MyArticles));
   store.dispatch(loadProfileRequest({ username }));
+  store.dispatch(loadArticlesRequest({ author: username }));
 }

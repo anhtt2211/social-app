@@ -33,4 +33,7 @@ export interface ArticleRO {
 export enum TabEnum {
   YourFeed = 'Your feed',
   GlobalFeed = 'Global feed',
+
+  MyArticles = 'My Articles',
+  FavoritedArticles = 'Favorited Articles',
 }

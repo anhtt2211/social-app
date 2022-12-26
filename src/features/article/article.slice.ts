@@ -20,13 +20,10 @@ const slice = createSlice({
   initialState,
   reducers: {
     startLoadingArticles: () => initialState,
-    loadGlobalArticlesRequest: (
-      state,
-      action: PayloadAction<ArticlesFilters>
-    ) => {
+    loadArticlesRequest: (state, action: PayloadAction<ArticlesFilters>) => {
       state.isLoading = true;
     },
-    loadGlobalArticlesSuccess: (
+    loadArticlesSuccess: (
       state,
       { payload }: PayloadAction<MultipleArticles>
     ) => {
@@ -34,7 +31,7 @@ const slice = createSlice({
       state.articlesCount = payload.articlesCount;
       state.isLoading = false;
     },
-    loadGlobalArticlesFailure: (state, { payload }) => {
+    loadArticlesFailure: (state, { payload }) => {
       state.error = payload;
       state.isLoading = false;
     },
@@ -72,9 +69,9 @@ const slice = createSlice({
 
 export const {
   startLoadingArticles,
-  loadGlobalArticlesRequest,
-  loadGlobalArticlesSuccess,
-  loadGlobalArticlesFailure,
+  loadArticlesRequest,
+  loadArticlesSuccess,
+  loadArticlesFailure,
   loadYourFeedsReq,
   loadYourFeedsSuccess,
   loadYourFeedsFailure,

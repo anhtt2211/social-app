@@ -4,7 +4,7 @@ import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
 import { changeTab } from 'pages/home-page/home.slice';
 import { Article, TabEnum } from 'types';
-import { loadGlobalArticlesRequest, loadYourFeedsReq } from '../article.slice';
+import { loadArticlesRequest, loadYourFeedsReq } from '../article.slice';
 import { ArticleList } from './ArticleList';
 
 interface Props {
@@ -84,9 +84,26 @@ function onTabChange(tab: string) {
   store.dispatch(changeTab(tab));
 
   if (tab === TabEnum.GlobalFeed) {
-    store.dispatch(loadGlobalArticlesRequest({}));
+    store.dispatch(loadArticlesRequest({}));
+    return;
   }
   if (tab === TabEnum.YourFeed) {
     store.dispatch(loadYourFeedsReq({}));
+    return;
+  }
+
+  if (tab === TabEnum.MyArticles) {
+    const {
+      profile: { username },
+    } = store.getState().profile;
+    store.dispatch(loadArticlesRequest({ author: username }));
+    return;
+  }
+  if (tab === TabEnum.FavoritedArticles) {
+    const {
+      profile: { username },
+    } = store.getState().profile;
+    store.dispatch(loadArticlesRequest({ favorited: username }));
+    return;
   }
 }

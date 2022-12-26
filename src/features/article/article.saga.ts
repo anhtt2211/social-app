@@ -14,9 +14,9 @@ import {
   favoriteArticleFailure,
   favoriteArticleReq,
   favoriteArticleSuccess,
-  loadGlobalArticlesFailure,
-  loadGlobalArticlesRequest,
-  loadGlobalArticlesSuccess,
+  loadArticlesFailure,
+  loadArticlesRequest,
+  loadArticlesSuccess,
   loadYourFeedsFailure,
   loadYourFeedsReq,
   loadYourFeedsSuccess,
@@ -33,9 +33,9 @@ function* fetchGlobalArticles({ payload }: PayloadAction<ArticlesFilters>) {
   try {
     const articles: MultipleArticles = yield call(getGlobalFeeds, payload);
 
-    yield put(loadGlobalArticlesSuccess(articles));
+    yield put(loadArticlesSuccess(articles));
   } catch (error) {
-    yield put(loadGlobalArticlesFailure(error));
+    yield put(loadArticlesFailure(error));
   }
 }
 
@@ -90,7 +90,7 @@ function* favoritedArticle({
 }
 
 export function* articleSaga() {
-  yield takeLatest(loadGlobalArticlesRequest.type, fetchGlobalArticles);
+  yield takeLatest(loadArticlesRequest.type, fetchGlobalArticles);
   yield takeLatest(loadYourFeedsReq.type, fetchYourFeeds);
   yield takeLatest(loadArticleRequest.type, fetchArticle);
   yield takeLatest(favoriteArticleReq.type, favoritedArticle);
