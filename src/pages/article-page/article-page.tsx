@@ -18,7 +18,7 @@ import {
 
 export const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { article } = useAppSelector((state) => state.articlePage);
+  const { article, isLoading } = useAppSelector((state) => state.articlePage);
 
   useEffect(() => {
     load(slug);
@@ -29,22 +29,28 @@ export const ArticlePage = () => {
   }, [slug]);
 
   return (
-    <div className="space-y-8 pb-10">
-      <ArticlePageBanner article={article} />
-      <div className="container mx-auto space-y-8">
-        <div className="space-y-4">
-          <div
-            className=" whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{ __html: article.body }}
-          />
-          <TagList tagList={article.tagList} />
-          <div className="border-1 border-solid h-[1px]" />
-        </div>
+    <div className="pb-10">
+      {
+        isLoading ? <div className="container mx-auto space-y-8">Loading article...</div> : (
+          <div className='space-y-8'>
+            <ArticlePageBanner article={article} />
+            <div className="container mx-auto space-y-8">
+              <div className="space-y-4">
+                <div
+                  className=" whitespace-pre-wrap"
+                  dangerouslySetInnerHTML={{ __html: article.body }}
+                />
+                <TagList tagList={article.tagList} />
+                <div className="border-1 border-solid h-[1px]" />
+              </div>
 
-        <ArticleMeta article={article} />
+              <ArticleMeta article={article} />
 
-        <CommentSection article={article} />
-      </div>
+              <CommentSection article={article} />
+            </div>
+          </div>
+        )
+      }
     </div>
   );
 };
