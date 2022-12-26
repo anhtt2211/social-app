@@ -19,7 +19,6 @@ import {
 export const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { article } = useAppSelector((state) => state.articlePage);
-  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     load(slug);
@@ -64,20 +63,14 @@ function ArticlePageBanner({ article }: { article: Article }) {
 
 function ArticleMeta({ article }: { article: Article }) {
   const { username } = useAppSelector((state) => state.auth.user);
-  const { isLoading } = useAppSelector((state) => state.articlePage);
 
   return (
     <div className="mt-8">
       <div className="flex items-center space-x-2">
         <ArticleAuthorInfo article={article} />
-        {!isLoading ? (
-          <>
-            {article.author.username === username ? (
-              <OwnerArticleMetaActions article={article} />
-            ) : (
-              <NonOwnerArticleMetaActions article={article} />
-            )}
-          </>
+
+        {article.author.username !== '' ? (
+          <>{article.author.username === username ? <OwnerArticleMetaActions article={article} /> : <NonOwnerArticleMetaActions article={article} />}</>
         ) : null}
       </div>
     </div>

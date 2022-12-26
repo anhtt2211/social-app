@@ -13,12 +13,14 @@ export function ArticleComment({
   slug,
   index,
   user,
+  isLoading,
   onDeleteComment,
 }: {
   comment: Comment;
   slug: string;
   index: number;
   user: User;
+  isLoading: boolean;
   onDeleteComment: (slug: string, commentId: number) => void;
 }) {
   return (
@@ -44,7 +46,7 @@ export function ArticleComment({
         </div>
 
         {username === user.username && (
-          <span className=" text-[#373a3c] text-base cursor-pointer">
+          <span className={`text-[#373a3c] text-base cursor-pointer ${isLoading && 'opacity-70 cursor-wait'}`}>
             <i
               className="ion-trash-a"
               aria-label={`Delete comment ${index + 1}`}

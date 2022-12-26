@@ -1,16 +1,18 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { User } from 'types';
 
 export function CommentForm({
   user: { image },
   slug,
   commentBody,
+  submittingAction,
   onCommentChange,
   onPostComment,
 }: {
   user: User;
   slug: string;
   commentBody: string;
+  submittingAction: boolean;
   onCommentChange: (ev: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onPostComment: (slug: string, body: string, ev: React.FormEvent) => void;
 }) {
@@ -31,7 +33,7 @@ export function CommentForm({
 
       <div className="bg-[#f5f5f5] p-4 flex justify-between items-center">
         <img src={image || undefined} className="rounded-full w-8 h-8" />
-        <button className="bg-green text-white text-sm font-semibold py-1 px-2 rounded">
+        <button className={`bg-green text-white text-sm font-semibold py-1 px-2 rounded ${submittingAction && 'opacity-70 cursor-wait'} ${commentBody === '' && 'cursor-not-allowed'}`} disabled={submittingAction}>
           Post Comment
         </button>
       </div>

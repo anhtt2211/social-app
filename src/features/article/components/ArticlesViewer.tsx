@@ -10,7 +10,8 @@ import { ArticleList } from './ArticleList';
 export const ArticlesViewer = ({}: {}) => {
   const { tab } = useAppSelector((state) => state.home);
   const { isLoading } = useAppSelector((state) => state.article);
-  const tabs = [ETab.GlobalFeed, ETab.YourFeed];
+  const { loginIn } = useAppSelector((state) => state.auth);
+  const tabs = loginIn ? [ETab.GlobalFeed, ETab.YourFeed] : [ETab.GlobalFeed]
 
   return (
     <Fragment>

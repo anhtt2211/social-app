@@ -1,4 +1,4 @@
-export const DATE_FORMAT = 'MMMM d, YYYY';
+export const DATE_FORMAT = 'MMMM D, YYYY';
 
 export const btnPrimary = 'bg-green text-white';
 export const btnOutlinePrimary =

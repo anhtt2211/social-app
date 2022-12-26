@@ -15,6 +15,7 @@ export interface ArticlePageState {
   commentSection: {
     comments: Comment[];
     commentBody: string;
+    submittingAction: boolean;
   };
   isLoading: boolean;
   error: string;
@@ -41,6 +42,7 @@ const initialState: ArticlePageState = {
   commentSection: {
     comments: [],
     commentBody: '',
+    submittingAction: false,
   },
   isLoading: false,
   error: '',
@@ -79,7 +81,6 @@ const slice = createSlice({
       state,
       { payload }: PayloadAction<CommentsRO>
     ) => {
-      // state.comments = payload.comments;
       state.commentSection.comments = payload.comments;
     },
     loadArticleCommentFailure: (state, action) => {},
@@ -87,12 +88,17 @@ const slice = createSlice({
     createCommentRequest: (
       state,
       { payload }: PayloadAction<{ slug: string; body: string }>
-    ) => {},
+    ) => {
+      state.commentSection.submittingAction = true;
+    },
     createCommentSuccess: (state, { payload }: PayloadAction<CommentRO>) => {
       state.commentSection.comments.unshift(payload.comment);
       state.commentSection.commentBody = '';
+      state.commentSection.submittingAction = false;
     },
-    createCommentFailure: (state) => {},
+    createCommentFailure: (state) => {
+      state.commentSection.submittingAction = false;
+    },
 
     deleteCommentRequest: (
       state,
