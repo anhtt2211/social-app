@@ -5,6 +5,7 @@ import rootSaga from './rootSaga';
 import articleReducer from 'features/article/article.slice';
 import tagReducer from 'features/tag/tag.slice';
 import authReducer from 'features/auth/auth.slice';
+import profileReducer from 'features/profile/profile.slice';
 import homeReducer from 'pages/home-page/home.slice';
 import articlePageReducer from 'pages/article-page/article-page.slice';
 
@@ -17,6 +18,7 @@ export const store = configureStore({
     auth: authReducer,
     home: homeReducer,
     articlePage: articlePageReducer,
+    profile: profileReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>

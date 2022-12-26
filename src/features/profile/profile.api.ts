@@ -8,3 +8,7 @@ export async function followUser(username: string): Promise<ProfileRO> {
 export async function unFollowUser(username: string): Promise<ProfileRO> {
   return httpClient.delete(`profiles/${username}/follow`);
 }
+
+export async function getProfile(username: string): Promise<ProfileRO> {
+  return httpClient.get(`profiles/${username}`);
+}

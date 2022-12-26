@@ -8,6 +8,7 @@ import { SignUpPage } from 'pages/sign-up';
 import { ArticlePage } from './pages/article-page/article-page';
 import { HomePage } from './pages/home-page/home-page';
 import { useAppSelector } from 'app/hooks';
+import { ProfilePage } from 'pages/profile-page';
 
 function App() {
   const { loading } = useAppSelector((state) => state.auth);
@@ -33,6 +34,9 @@ function App() {
             </Route>
             <Route exact path="/sign-up">
               <SignUpPage />
+            </Route>
+            <Route exact path="/profile/:username">
+              <ProfilePage />
             </Route>
           </Switch>
         </Fragment>
