@@ -46,6 +46,10 @@ const slice = createSlice({
       state.loginIn = false;
       state.loading = false;
     },
+
+    endLoad: (state) => {
+      state.loading = false;
+    },
   },
 });
 
@@ -56,6 +60,7 @@ export const {
   loadUserRequest,
   loadUserSuccess,
   loadUserFailure,
+  endLoad,
 } = slice.actions;
 
 export default slice.reducer;

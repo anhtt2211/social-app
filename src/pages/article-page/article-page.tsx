@@ -18,7 +18,8 @@ import {
 
 export const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { article, comments } = useAppSelector((state) => state.articlePage);
+  const { article } = useAppSelector((state) => state.articlePage);
+  const { user } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     load(slug);
@@ -43,11 +44,7 @@ export const ArticlePage = () => {
 
         <ArticleMeta article={article} />
 
-        <CommentSection
-          user={article.author}
-          article={article}
-          comments={comments}
-        />
+        <CommentSection article={article} />
       </div>
     </div>
   );

@@ -13,11 +13,13 @@ export function ArticleComment({
   slug,
   index,
   user,
+  onDeleteComment,
 }: {
   comment: Comment;
   slug: string;
   index: number;
   user: User;
+  onDeleteComment: (slug: string, commentId: number) => void;
 }) {
   return (
     <div className="border-1 border-solid rounded mt-3">
@@ -41,13 +43,15 @@ export function ArticleComment({
           </span>
         </div>
 
-        <span className=" text-[#373a3c] text-base cursor-pointer">
-          <i
-            className="ion-trash-a"
-            aria-label={`Delete comment ${index + 1}`}
-            //   onClick={() => onDeleteComment(slug, id)}
-          ></i>
-        </span>
+        {username === user.username && (
+          <span className=" text-[#373a3c] text-base cursor-pointer">
+            <i
+              className="ion-trash-a"
+              aria-label={`Delete comment ${index + 1}`}
+              onClick={() => onDeleteComment(slug, id)}
+            ></i>
+          </span>
+        )}
       </div>
     </div>
   );

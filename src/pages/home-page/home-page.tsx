@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 
 import { useAppSelector } from 'app/hooks';
-
 import { store } from 'app/store';
 import { loadGlobalArticlesRequest } from 'features/article/article.slice';
 import { ArticlesViewer } from 'features/article/components/ArticlesViewer';

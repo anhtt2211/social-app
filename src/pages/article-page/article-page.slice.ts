@@ -1,10 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Article, ArticleRO, Comment, CommentsRO, ProfileRO } from 'types';
+import {
+  Article,
+  ArticleRO,
+  Comment,
+  CommentRO,
+  CommentsRO,
+  ProfileRO,
+} from 'types';
 
+// wip => comments to commentSection: {comments, commentBody}
 export interface ArticlePageState {
   article: Article;
-  comments: Comment[];
+  commentSection: {
+    comments: Comment[];
+    commentBody: string;
+  };
   isLoading: boolean;
   error: string;
 }
@@ -27,7 +38,10 @@ const initialState: ArticlePageState = {
       image: '',
     },
   },
-  comments: [],
+  commentSection: {
+    comments: [],
+    commentBody: '',
+  },
   isLoading: false,
   error: '',
 };
@@ -65,9 +79,35 @@ const slice = createSlice({
       state,
       { payload }: PayloadAction<CommentsRO>
     ) => {
-      state.comments = payload.comments;
+      // state.comments = payload.comments;
+      state.commentSection.comments = payload.comments;
     },
     loadArticleCommentFailure: (state, action) => {},
+
+    createCommentRequest: (
+      state,
+      { payload }: PayloadAction<{ slug: string; body: string }>
+    ) => {},
+    createCommentSuccess: (state, { payload }: PayloadAction<CommentRO>) => {
+      state.commentSection.comments.unshift(payload.comment);
+      state.commentSection.commentBody = '';
+    },
+    createCommentFailure: (state) => {},
+
+    deleteCommentRequest: (
+      state,
+      action: PayloadAction<{ slug: string; commentId: number }>
+    ) => {},
+    deleteCommentSuccess: (state, { payload }: PayloadAction<number>) => {
+      state.commentSection.comments = state.commentSection.comments.filter(
+        (comment) => comment.id !== payload
+      );
+    },
+    deleteCommentFailure: (state) => {},
+
+    updateCommentBody: (state, { payload }: PayloadAction<string>) => {
+      state.commentSection.commentBody = payload;
+    },
 
     followAuthorRequest: (
       state,
@@ -96,7 +136,8 @@ const slice = createSlice({
           image: '',
         },
       };
-      state.comments = [];
+      state.commentSection.comments = [];
+      state.commentSection.commentBody = '';
     },
   },
 });
@@ -111,6 +152,13 @@ export const {
   loadArticleCommentRequest,
   loadArticleCommentSuccess,
   loadArticleCommentFailure,
+  createCommentRequest,
+  createCommentSuccess,
+  createCommentFailure,
+  deleteCommentRequest,
+  deleteCommentSuccess,
+  deleteCommentFailure,
+  updateCommentBody,
   followAuthorRequest,
   followAuthorSuccess,
   followAuthorFailure,

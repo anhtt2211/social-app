@@ -2,7 +2,7 @@ import { Fragment, useEffect } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Header } from './components/Header';
 import { store } from 'app/store';
-import { loadUserRequest } from 'features/auth/auth.slice';
+import { endLoad, loadUserRequest } from 'features/auth/auth.slice';
 import { SignInPage } from 'pages/sign-in/sign-in';
 import { SignUpPage } from 'pages/sign-up';
 import { ArticlePage } from './pages/article-page/article-page';
@@ -45,6 +45,10 @@ export default App;
 
 function load() {
   const token = localStorage.getItem('token');
+  if (!store.getState().auth.loading || !token) {
+    store.dispatch(endLoad());
+    return;
+  }
 
   if (token) {
     store.dispatch(loadUserRequest());

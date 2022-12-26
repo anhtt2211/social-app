@@ -11,3 +11,7 @@ export interface Comment {
 export interface CommentsRO {
   comments: Comment[];
 }
+
+export interface CommentRO {
+  comment: Comment;
+}
