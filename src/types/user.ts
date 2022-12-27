@@ -5,7 +5,7 @@ export interface PublicUser {
 }
 
 export interface User extends PublicUser {
-  email?: string;
+  email: string;
   token?: string;
 }
 

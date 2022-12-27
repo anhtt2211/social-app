@@ -1,7 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { store } from 'app/store';
+import {
+  favoriteArticlePageRequest,
+  favoriteArticlePageSuccess,
+  loadArticleFailure,
+  loadArticleRequest,
+  loadArticleSuccess,
+} from 'pages/article-page/article-page.slice';
 import { ArticleRO, ArticlesFilters, MultipleArticles } from 'types';
 import {
   favoriteArticle,
@@ -21,13 +27,6 @@ import {
   loadYourFeedsReq,
   loadYourFeedsSuccess,
 } from './article.slice';
-import {
-  favoriteArticlePageRequest,
-  favoriteArticlePageSuccess,
-  loadArticleFailure,
-  loadArticleRequest,
-  loadArticleSuccess,
-} from 'pages/article-page/article-page.slice';
 
 function* fetchGlobalArticles({ payload }: PayloadAction<ArticlesFilters>) {
   try {

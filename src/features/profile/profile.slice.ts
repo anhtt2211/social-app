@@ -34,6 +34,15 @@ const slice = createSlice({
       state.isLoading = false;
     },
 
+    onFollowProfileRequest: (
+      state,
+      { payload }: PayloadAction<{ username: string; follow: boolean }>
+    ) => {},
+    onFollowProfileSuccess: (state, { payload }: PayloadAction<ProfileRO>) => {
+      state.profile = payload.profile;
+    },
+    onFollowProfileFailure: (state) => {},
+
     resetProfileState: (state) => {
       state.profile = {
         username: '',
@@ -50,6 +59,9 @@ export const {
   loadProfileSuccess,
   loadProfileFailure,
   resetProfileState,
+  onFollowProfileRequest,
+  onFollowProfileSuccess,
+  onFollowProfileFailure,
 } = slice.actions;
 
 export default slice.reducer;

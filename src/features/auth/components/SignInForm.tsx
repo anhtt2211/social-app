@@ -1,5 +1,5 @@
-import { FormGroup } from 'components/FormGroup';
 import React from 'react';
+import { FormGroup } from 'components/FormGroup';
 
 interface IProps {
   formData: Record<string, string>;
@@ -12,7 +12,7 @@ interface IProps {
 
 export const SignInForm = ({ signIn, formData, onChangeForm }: IProps) => {
   return (
-    <form onSubmit={signIn} className="block">
+    <form onSubmit={signIn} className="w-1/2 mx-auto">
       <fieldset>
         <FormGroup
           type="text"
@@ -32,7 +32,7 @@ export const SignInForm = ({ signIn, formData, onChangeForm }: IProps) => {
           disabled={false}
           onChange={(event) => onChangeForm(event, 'password')}
         />
-        <button className="bg-green text-white text-xl font-semibold px-12 py-4 rounded-xl">
+        <button className="bg-green text-white text-xl font-semibold px-24 py-4 rounded-lg float-right">
           Sign in
         </button>
       </fieldset>

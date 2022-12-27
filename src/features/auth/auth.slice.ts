@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User, UserRO } from 'types';
-import { MultipleTags } from 'types/tag';
+import { User, UserRO, UserSettings } from 'types';
 
 export interface AuthState {
   user: User;
@@ -47,6 +46,12 @@ const slice = createSlice({
       state.loading = false;
     },
 
+    updateSettingsRequest: (state, action: PayloadAction<UserSettings>) => {},
+    updateSettingsSuccess: (state, { payload }: PayloadAction<UserRO>) => {
+      state.user = payload.user;
+    },
+    updateSettingsFailure: (state) => {},
+
     endLoad: (state) => {
       state.loading = false;
     },
@@ -60,6 +65,9 @@ export const {
   loadUserRequest,
   loadUserSuccess,
   loadUserFailure,
+  updateSettingsRequest,
+  updateSettingsSuccess,
+  updateSettingsFailure,
   endLoad,
 } = slice.actions;
 

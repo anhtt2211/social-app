@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { store } from 'app/store';
 import {
   loadProfileRequest,
+  onFollowProfileRequest,
   resetProfileState,
 } from 'features/profile/profile.slice';
 import { useAppSelector } from 'app/hooks';
@@ -36,7 +37,7 @@ export const ProfilePage = () => {
     <Fragment>
       {isLoading ? null : (
         <div>
-          <UserInfo user={profile} />
+          <UserInfo user={profile} onFollowToggle={onFollowToggle} />
 
           <div className="container mx-auto mt-6">
             <ArticlesViewer
@@ -55,4 +56,13 @@ function load(username: string) {
   store.dispatch(changeTab(TabEnum.MyArticles));
   store.dispatch(loadProfileRequest({ username }));
   store.dispatch(loadArticlesRequest({ author: username }));
+}
+
+function onFollowToggle(username: string, follow: boolean) {
+  store.dispatch(
+    onFollowProfileRequest({
+      username,
+      follow,
+    })
+  );
 }

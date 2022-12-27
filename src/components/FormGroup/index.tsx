@@ -18,7 +18,7 @@ export function FormGroup({
   return (
     <fieldset className="mb-4">
       <input
-        className="py-3 px-5 outline-none border-1 border-solid rounded w-[40%]"
+        className="py-3 px-5 outline-none border-1 border-solid rounded w-full"
         {...{ type, placeholder, disabled, value, onChange }}
       />
     </fieldset>
@@ -32,20 +32,18 @@ export function TextAreaFormGroup({
   value,
   rows,
   onChange,
-  lg,
 }: {
   type: string;
   placeholder: string;
   disabled: boolean;
   rows: number;
   value: string;
-  lg: boolean;
   onChange: (ev: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }) {
   return (
     <fieldset className="form-group">
       <textarea
-        className={`form-control${!lg ? '' : ' form-control-lg'}`}
+        className="py-3 px-5 outline-none border-1 border-solid rounded w-full"
         {...{ type, placeholder, disabled, value, onChange, rows }}
       ></textarea>
     </fieldset>

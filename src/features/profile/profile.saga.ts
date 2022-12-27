@@ -12,17 +12,24 @@ import {
   loadProfileFailure,
   loadProfileRequest,
   loadProfileSuccess,
+  onFollowProfileRequest,
+  onFollowProfileSuccess,
 } from './profile.slice';
 
 function* onFollowUser({
   payload,
+  type,
 }: PayloadAction<{ username: string; follow: boolean }>) {
   try {
     const profile: ProfileRO = payload.follow
       ? yield call(unFollowUser, payload.username)
       : yield call(followUser, payload.username);
 
-    yield put(followAuthorSuccess(profile));
+    if (type === 'profile/onFollowProfileRequest') {
+      yield put(onFollowProfileSuccess(profile));
+    } else {
+      yield put(followAuthorSuccess(profile));
+    }
   } catch (error) {
     yield put(followAuthorFailure());
   }
@@ -42,5 +49,6 @@ function* fetchProfile({
 
 export function* profileSaga() {
   yield takeLatest(followAuthorRequest.type, onFollowUser);
+  yield takeLatest(onFollowProfileRequest.type, onFollowUser);
   yield takeLatest(loadProfileRequest.type, fetchProfile);
 }
