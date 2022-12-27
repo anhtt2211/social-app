@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { FormGroup } from 'components/FormGroup';
-import { SignInForm } from 'features/auth/components/SignInForm';
 import { store } from 'app/store';
 import { signInRequest } from 'features/auth/auth.slice';
+import { SignInForm } from 'features/auth/components/SignInForm';
 
 export const SignInPage = () => {
   const [formData, setFormData] = useState({

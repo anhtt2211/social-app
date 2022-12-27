@@ -9,8 +9,10 @@ import { TabEnum } from 'types';
 import { changeTab } from './home.slice';
 
 export const HomePage = () => {
-  const { articles, isLoading } = useAppSelector((state) => state.article);
-  const { loginIn } = useAppSelector((state) => state.auth);
+  const {
+    auth: { loginIn },
+    article: { articles, isLoading },
+  } = useAppSelector((state) => state);
   const tabs = loginIn
     ? [TabEnum.GlobalFeed, TabEnum.YourFeed]
     : [TabEnum.GlobalFeed];

@@ -38,5 +38,11 @@ function onFavoriteArticle({
   slug: string;
   favorited: boolean;
 }) {
+  const { loginIn } = store.getState().auth;
+  if (!loginIn) {
+    window.location.hash = '#/sign-in';
+    return;
+  }
+
   store.dispatch(favoriteArticleReq({ slug, favorited }));
 }

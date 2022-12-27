@@ -15,11 +15,11 @@ import { changeTab } from 'pages/home-page/home.slice';
 
 export const ProfilePage = () => {
   const { username } = useParams<{ username: string }>();
-  const { loginIn } = useAppSelector((state) => state.auth);
-  const { profile, isLoading } = useAppSelector((state) => state.profile);
-  const { articles, isLoading: isLoadingArticles } = useAppSelector(
-    (state) => state.article
-  );
+  const {
+    auth: { loginIn },
+    profile: { profile, isLoading },
+    article: { articles, isLoading: isLoadingArticles },
+  } = useAppSelector((state) => state);
   const tabs = loginIn
     ? [TabEnum.MyArticles, TabEnum.FavoritedArticles]
     : [TabEnum.MyArticles];

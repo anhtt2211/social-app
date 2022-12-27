@@ -51,11 +51,6 @@ function* fetchYourFeeds({ payload }: PayloadAction<ArticlesFilters>) {
 
 function* fetchArticle({ payload }: PayloadAction<string>) {
   try {
-    const { loginIn } = store.getState().auth;
-    if (!loginIn) {
-      window.location.hash = '#/sign-in';
-      return;
-    }
     const article: ArticleRO = yield call(getArticleViaSlug, payload);
 
     yield put(loadArticleSuccess(article));
@@ -69,12 +64,6 @@ function* favoritedArticle({
   type,
 }: PayloadAction<{ slug: string; favorited: boolean }>) {
   try {
-    const { loginIn } = store.getState().auth;
-    if (!loginIn) {
-      window.location.hash = '#/sign-in';
-      return;
-    }
-
     const article: ArticleRO = favorited
       ? yield call(unFavoriteArticle, slug)
       : yield call(favoriteArticle, slug);
