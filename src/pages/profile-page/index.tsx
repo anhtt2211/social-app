@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import { UserInfo } from 'features/profile/components/UserInfo';
 import { useParams } from 'react-router-dom';
@@ -33,7 +33,7 @@ export const ProfilePage = () => {
   }, [username]);
 
   return (
-    <div>
+    <Fragment>
       {isLoading ? null : (
         <div>
           <UserInfo user={profile} />
@@ -47,7 +47,7 @@ export const ProfilePage = () => {
           </div>
         </div>
       )}
-    </div>
+    </Fragment>
   );
 };
 

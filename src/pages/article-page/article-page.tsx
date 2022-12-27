@@ -29,10 +29,12 @@ export const ArticlePage = () => {
   }, [slug]);
 
   return (
-    <div className="pb-10">
-      {
-        isLoading ? <div className="container mx-auto space-y-8">Loading article...</div> : (
-          <div className='space-y-8'>
+    <Fragment>
+      <div className="pb-10">
+        {isLoading ? (
+          <div className="container mx-auto space-y-8">Loading article...</div>
+        ) : (
+          <div className="space-y-8">
             <ArticlePageBanner article={article} />
             <div className="container mx-auto space-y-8">
               <div className="space-y-4">
@@ -49,9 +51,9 @@ export const ArticlePage = () => {
               <CommentSection article={article} />
             </div>
           </div>
-        )
-      }
-    </div>
+        )}
+      </div>
+    </Fragment>
   );
 };
 
@@ -76,7 +78,13 @@ function ArticleMeta({ article }: { article: Article }) {
         <ArticleAuthorInfo article={article} />
 
         {article.author.username !== '' ? (
-          <>{article.author.username === username ? <OwnerArticleMetaActions article={article} /> : <NonOwnerArticleMetaActions article={article} />}</>
+          <>
+            {article.author.username === username ? (
+              <OwnerArticleMetaActions article={article} />
+            ) : (
+              <NonOwnerArticleMetaActions article={article} />
+            )}
+          </>
         ) : null}
       </div>
     </div>

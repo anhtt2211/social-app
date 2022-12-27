@@ -1,5 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 export const SignUpPage = () => {
-  return <div>SignUpPage</div>;
+  return <Fragment>SignUpPage</Fragment>;
 };

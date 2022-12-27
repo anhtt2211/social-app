@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
@@ -22,7 +22,7 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <Fragment>
       {renderBanner()}
 
       <div className="container mx-auto mt-6">
@@ -40,7 +40,7 @@ export const HomePage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

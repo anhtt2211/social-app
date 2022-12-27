@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { store } from 'app/store';
@@ -27,19 +27,21 @@ export const SignInPage = () => {
   };
 
   return (
-    <div className="container text-center py-10 mx-auto space-y-10">
-      <div>
-        <h1 className="text-2xl mb-4">Sign in</h1>
-        <Link to="/sign-up">
-          <p className="text-green">Need an account?</p>
-        </Link>
-      </div>
+    <Fragment>
+      <div className="container text-center py-10 mx-auto space-y-10">
+        <div>
+          <h1 className="text-2xl mb-4">Sign in</h1>
+          <Link to="/sign-up">
+            <p className="text-green">Need an account?</p>
+          </Link>
+        </div>
 
-      <SignInForm
-        formData={formData}
-        signIn={signIn}
-        onChangeForm={onChangeForm}
-      />
-    </div>
+        <SignInForm
+          formData={formData}
+          signIn={signIn}
+          onChangeForm={onChangeForm}
+        />
+      </div>
+    </Fragment>
   );
 };
