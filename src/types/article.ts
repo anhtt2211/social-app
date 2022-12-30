@@ -11,6 +11,28 @@ export interface Article {
   favorited: boolean;
   favoritesCount: number;
   author: Profile;
+  blocks?: Block[];
+}
+
+export interface Info {
+  width?: number;
+  height?: number;
+}
+
+export interface File {
+  info?: Info;
+  url?: string;
+}
+
+export interface Data {
+  alignment?: string;
+  text?: string;
+  caption?: string;
+  file?: File;
+}
+export interface Block {
+  data: Data;
+  type: BlockTypeEnum;
 }
 
 export interface ArticlesFilters {
@@ -36,4 +58,15 @@ export enum TabEnum {
 
   MyArticles = 'My Articles',
   FavoritedArticles = 'Favorited Articles',
+}
+
+export enum BlockTypeEnum {
+  BIGGER_HEADER = 'biggerHeader',
+  SMALL_HEADER = 'smallerHeader',
+  PARAGRAPH = 'paragraph',
+  IMAGE = 'image',
+  QUOTE = 'quote',
+  PULL_QUOTE = 'pullquote',
+  LINK_TOOL = 'linkTool',
+  DELIMITER = 'delimiter',
 }

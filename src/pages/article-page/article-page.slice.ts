@@ -38,6 +38,7 @@ const initialState: ArticlePageState = {
       bio: '',
       image: '',
     },
+    blocks: [],
   },
   commentSection: {
     comments: [],
@@ -141,6 +142,7 @@ const slice = createSlice({
           bio: '',
           image: '',
         },
+        blocks: [],
       };
       state.commentSection.comments = [];
       state.commentSection.commentBody = '';

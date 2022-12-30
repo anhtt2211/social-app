@@ -1,8 +1,11 @@
 import axios from 'axios';
+import { REACTJS_BOILERPLATE_API } from './development';
 
 export const httpClient = axios.create({
-  baseURL: 'https://api.realworld.io/api/',
-  // baseURL: 'http://localhost:8000/api/',
+  // baseURL: 'https://api.realworld.io/api/',
+  baseURL: 'http://192.168.100.135:8000/api/',
+  // baseURL: 'http://192.168.1.6:8000/api/',
+  // baseURL: REACTJS_BOILERPLATE_API,
 });
 
 httpClient.interceptors.request.use((config) => {

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
-import { btnOutlinePrimary, btnPrimary, DATE_FORMAT } from 'constant';
+import { blocks, btnOutlinePrimary, btnPrimary, DATE_FORMAT } from 'constant';
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
 import { Article } from 'types';
@@ -15,6 +15,7 @@ import {
   loadArticleRequest,
   resetArticle,
 } from './article-page.slice';
+import { ArticleBody } from 'features/article/components/ArticleBody';
 
 export const ArticlePage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -38,10 +39,7 @@ export const ArticlePage = () => {
             <ArticlePageBanner article={article} />
             <div className="container mx-auto space-y-8">
               <div className="space-y-4">
-                <div
-                  className=" whitespace-pre-wrap"
-                  dangerouslySetInnerHTML={{ __html: article.body }}
-                />
+                <ArticleBody blocks={article.blocks!} />
                 <TagList tagList={article.tagList} />
                 <div className="border-1 border-solid h-[1px]" />
               </div>

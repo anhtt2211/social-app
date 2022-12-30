@@ -16,7 +16,9 @@ export const UserInfo = ({
   );
 
   return (
-    <div className="bg-[#f3f3f3] py-6 pb-16">
+    <div
+      className={`bg-[#f3f3f3] py-6 ${sessionUsername !== username && 'pb-16'}`}
+    >
       <div className="text-center relative items-center space-y-2 w-1/2 mx-auto">
         <div className="flex justify-center">
           <img
