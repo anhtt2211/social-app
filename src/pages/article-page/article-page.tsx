@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useAppSelector } from 'app/hooks';
 import { store } from 'app/store';
-import { blocks, btnOutlinePrimary, btnPrimary, DATE_FORMAT } from 'constant';
+import { btnOutlinePrimary, btnPrimary, DATE_FORMAT } from 'constant';
 import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
 import { Article } from 'types';
