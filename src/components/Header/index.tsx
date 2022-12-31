@@ -10,7 +10,7 @@ export function Header() {
     <nav className="py-4">
       <div className="container flex justify-between mx-auto">
         <a className="text-xl text-green font-bold" href="/#/">
-          ReactJS Boilerplate
+          Social App
         </a>
         <ul className="flex justify-between">
           <HashRouter>

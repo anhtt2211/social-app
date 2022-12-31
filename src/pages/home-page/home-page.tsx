@@ -48,7 +48,7 @@ function renderBanner() {
   return (
     <div className="w-screen bg-green text-white text-center shadow-y">
       <div className="py-12 space-y-4">
-        <h1 className="text-2xl font-bold">ReactJS Boilerplate</h1>
+        <h1 className="text-2xl font-bold">Social App</h1>
         <p className="text-lg">A place to share your knowledge.</p>
       </div>
     </div>

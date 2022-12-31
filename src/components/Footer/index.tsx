@@ -5,7 +5,7 @@ export function Footer() {
         {/* <div className="bg-[#f3f3f3] absolute bottom-0 py-4 w-screen"> */}
         <div className="container mx-auto">
           <a href="/#/" className="text-green font-bold pr-2">
-            ReactJS Boilerplate
+            Social App
           </a>
           <span className=" text-sm text-[#bbb] font-light">
             An interactive learning project from <a href="">Thinkster</a>. Code
