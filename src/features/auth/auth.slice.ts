@@ -55,6 +55,11 @@ const slice = createSlice({
     endLoad: (state) => {
       state.loading = false;
     },
+
+    signOut: (state) => {
+      state.user = initialState.user;
+      state.loginIn = false;
+    },
   },
 });
 
@@ -69,6 +74,7 @@ export const {
   updateSettingsSuccess,
   updateSettingsFailure,
   endLoad,
+  signOut,
 } = slice.actions;
 
 export default slice.reducer;

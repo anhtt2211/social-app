@@ -14,9 +14,11 @@ module.exports = {
       },
       textColor: {
         green: '#5cb85c',
+        red: '#b85c5c',
       },
       borderColor: {
         green: '#5cb85c',
+        red: '#b85c5c',
       },
     },
   },

@@ -167,7 +167,7 @@ function OwnerArticleMetaActions({
       </button>
       &nbsp;
       <button
-        className="text-xs px-2 py-1 border-1 border-solid border-[#b85c5c] text-[#b85c5c] rounded hover:opacity-70"
+        className="text-xs px-2 py-1 border-1 border-solid border-red text-red rounded hover:opacity-70"
         disabled={deletingArticle}
         // onClick={() => onDeleteArticle(slug)}
       >

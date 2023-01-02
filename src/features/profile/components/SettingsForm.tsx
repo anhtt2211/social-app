@@ -17,7 +17,7 @@ export const SettingsForm = ({
   onChangeForm,
 }: Props) => {
   return (
-    <form onSubmit={onUpdateSettings} className="w-2/3 mx-auto">
+    <form onSubmit={onUpdateSettings} className="mx-auto">
       <FormGroup
         type="text"
         key="username"
@@ -45,7 +45,7 @@ export const SettingsForm = ({
         disabled={false}
         onChange={(event) => onChangeForm(event, 'email')}
       />
-      <button className="bg-green text-white text-xl font-medium px-24 py-4 rounded-lg float-right">
+      <button className="bg-green text-white text-xl font-medium w-full py-3 rounded hover:opacity-90">
         Update Settings
       </button>
     </form>
