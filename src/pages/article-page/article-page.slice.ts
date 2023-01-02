@@ -70,7 +70,11 @@ const slice = createSlice({
       state,
       { payload }: PayloadAction<ArticleRO>
     ) => {
-      state.article = payload.article;
+      state.article = {
+        ...state.article,
+        favorited: payload.article.favorited,
+        favoritesCount: payload.article.favoritesCount,
+      };
     },
     favoriteArticlePageFailure: (state, action) => {},
 
