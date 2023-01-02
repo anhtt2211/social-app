@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User, UserRO, UserSettings } from 'types';
+import { User, UserForRegistration, UserRO, UserSettings } from 'types';
 
 export interface AuthState {
   user: User;
@@ -34,6 +34,13 @@ const slice = createSlice({
       state.error = payload.message;
     },
 
+    signUpRequest: (state, action: PayloadAction<UserForRegistration>) => {},
+    signUpSuccess: (state, { payload }: PayloadAction<UserRO>) => {
+      state.user = payload.user;
+      state.loginIn = true;
+    },
+    signUpFailure: (state) => {},
+
     loadUserRequest: (state) => {},
     loadUserSuccess: (state, { payload }: PayloadAction<UserRO>) => {
       state.user = payload.user;
@@ -67,6 +74,9 @@ export const {
   signInRequest,
   signInSuccess,
   signInFailure,
+  signUpRequest,
+  signUpSuccess,
+  signUpFailure,
   loadUserRequest,
   loadUserSuccess,
   loadUserFailure,

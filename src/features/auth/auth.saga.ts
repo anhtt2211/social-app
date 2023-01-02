@@ -1,8 +1,13 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-import { UserRO, UserSettings } from '../../types/user';
-import { loadUser, signIn as login, updateSetting } from './auth.api';
+import { UserForRegistration, UserRO, UserSettings } from '../../types/user';
+import {
+  loadUser,
+  signIn as login,
+  signUp as register,
+  updateSetting,
+} from './auth.api';
 import {
   loadUserFailure,
   loadUserRequest,
@@ -10,6 +15,9 @@ import {
   signInFailure,
   signInRequest,
   signInSuccess,
+  signUpFailure,
+  signUpRequest,
+  signUpSuccess,
   updateSettingsFailure,
   updateSettingsRequest,
   updateSettingsSuccess,
@@ -27,6 +35,18 @@ function* signIn({
     window.location.href = '#/';
   } catch (error) {
     yield put(signInFailure(error));
+  }
+}
+
+function* signUp({ payload }: PayloadAction<UserForRegistration>) {
+  try {
+    const userInfo: UserRO = yield call(register, payload);
+
+    yield put(signUpSuccess(userInfo));
+
+    localStorage.setItem('token', userInfo.user.token!);
+  } catch (error) {
+    yield put(signUpFailure());
   }
 }
 
@@ -53,6 +73,7 @@ function* onUpdateSettings({ payload }: PayloadAction<UserSettings>) {
 
 export function* authSaga() {
   yield takeLatest(signInRequest.type, signIn);
+  yield takeLatest(signUpRequest.type, signUp);
   yield takeLatest(loadUserRequest.type, fetchUser);
   yield takeLatest(updateSettingsRequest.type, onUpdateSettings);
 }

@@ -1,5 +1,5 @@
 import { httpClient } from 'config';
-import { UserRO, UserSettings } from 'types';
+import { UserForRegistration, UserRO, UserSettings } from 'types';
 
 export async function signIn({
   email,
@@ -9,6 +9,10 @@ export async function signIn({
   password: string;
 }): Promise<UserRO> {
   return httpClient.post('users/login', { user: { email, password } });
+}
+
+export async function signUp(user: UserForRegistration): Promise<UserRO> {
+  return httpClient.post('users', { user });
 }
 
 export async function loadUser(): Promise<UserRO> {
