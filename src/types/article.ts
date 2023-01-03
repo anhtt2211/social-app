@@ -31,6 +31,7 @@ export interface Data {
   file?: File;
 }
 export interface Block {
+  id: number;
   data: Data;
   type: BlockTypeEnum;
 }

@@ -130,7 +130,7 @@ function NonOwnerArticleMetaActions({
     <Fragment>
       <button
         className={`text-xs px-2 py-1 !ml-10 border-1 bg-white border-solid border-[#ccc] rounded hover:opacity-70 ${
-          following ? 'text-black' : 'text-[#ccc]'
+          following ? 'text-[#ccc]' : 'text-black'
         }`}
         onClick={() => onFollow({ username, follow: following })}
       >

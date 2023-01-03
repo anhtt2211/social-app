@@ -3,7 +3,7 @@ import { Block, BlockTypeEnum } from 'types';
 export function ArticleBody({ blocks }: { blocks: Block[] }) {
   return (
     <div className="px-2">
-      {blocks.map((block: any) => (
+      {blocks.map((block: Block) => (
         <div key={block.id}>{renderContent(block)}</div>
       ))}
     </div>
