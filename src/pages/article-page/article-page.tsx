@@ -9,6 +9,7 @@ import { CommentSection } from 'features/article/components/CommentSection';
 import { TagList } from 'features/article/components/TagList';
 import { Article } from 'types';
 import {
+  deleteArticleRequest,
   favoriteArticlePageRequest,
   followAuthorRequest,
   loadArticleCommentRequest,
@@ -169,7 +170,7 @@ function OwnerArticleMetaActions({
       <button
         className="text-xs px-2 py-1 border-1 border-solid border-red text-red rounded hover:opacity-70"
         disabled={deletingArticle}
-        // onClick={() => onDeleteArticle(slug)}
+        onClick={() => onDeleteArticle(slug)}
       >
         <i className="ion-heart"></i>
         &nbsp; Delete Article
@@ -195,4 +196,9 @@ function onFavoriteArticle({
 
 function onFollow({ username, follow }: { username: string; follow: boolean }) {
   store.dispatch(followAuthorRequest({ username, follow }));
+}
+
+function onDeleteArticle(slug: string) {
+  store.dispatch(deleteArticleRequest(slug));
+  // TODO: back to prev route
 }

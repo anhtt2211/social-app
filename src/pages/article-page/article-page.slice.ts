@@ -65,6 +65,16 @@ const slice = createSlice({
       state.error = action.payload;
     },
 
+    deleteArticleRequest: (state, { payload }: PayloadAction<string>) => {
+      state.isLoading = true;
+    },
+    deleteArticleSuccess: (state) => {
+      state.isLoading = false;
+    },
+    deleteArticleFailure: (state) => {
+      state.isLoading = false;
+    },
+
     favoriteArticlePageRequest: (state, action) => {},
     favoriteArticlePageSuccess: (
       state,
@@ -158,6 +168,9 @@ export const {
   loadArticleRequest,
   loadArticleSuccess,
   loadArticleFailure,
+  deleteArticleRequest,
+  deleteArticleSuccess,
+  deleteArticleFailure,
   favoriteArticlePageRequest,
   favoriteArticlePageSuccess,
   favoriteArticlePageFailure,

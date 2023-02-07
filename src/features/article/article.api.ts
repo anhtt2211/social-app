@@ -35,3 +35,7 @@ export async function favoriteArticle(slug: string): Promise<ArticleRO> {
 export async function unFavoriteArticle(slug: string): Promise<ArticleRO> {
   return httpClient.delete(`articles/${slug}/favorite`);
 }
+
+export async function deleteArticle(slug: string): Promise<void> {
+  return httpClient.delete(`articles/${slug}`);
+}

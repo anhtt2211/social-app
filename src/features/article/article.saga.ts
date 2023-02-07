@@ -2,6 +2,9 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
 import {
+  deleteArticleFailure,
+  deleteArticleRequest,
+  deleteArticleSuccess,
   favoriteArticlePageRequest,
   favoriteArticlePageSuccess,
   loadArticleFailure,
@@ -15,6 +18,7 @@ import {
   getGlobalFeeds,
   getYourFeeds,
   unFavoriteArticle,
+  deleteArticle as deleteArticleApi,
 } from './article.api';
 import {
   favoriteArticleFailure,
@@ -77,10 +81,20 @@ function* favoritedArticle({
   }
 }
 
+function* deleteArticle({ payload }: PayloadAction<string>) {
+  try {
+    yield call(deleteArticleApi, payload);
+    yield put(deleteArticleSuccess());
+  } catch (error) {
+    yield put(deleteArticleFailure());
+  }
+}
+
 export function* articleSaga() {
   yield takeLatest(loadArticlesRequest.type, fetchGlobalArticles);
   yield takeLatest(loadYourFeedsReq.type, fetchYourFeeds);
   yield takeLatest(loadArticleRequest.type, fetchArticle);
+  yield takeLatest(deleteArticleRequest.type, deleteArticle);
   yield takeLatest(favoriteArticleReq.type, favoritedArticle);
   yield takeLatest(favoriteArticlePageRequest.type, favoritedArticle);
 }
