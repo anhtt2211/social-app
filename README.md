@@ -8,7 +8,7 @@ Clone the repository
 
 Switch to the repo folder
 
-    cd social-api
+    cd social-app
 
 Install dependencies
 
